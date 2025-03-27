@@ -11,14 +11,25 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
-
+@theme {
+  --color-neutral-black:#1E1E1E;
+  --color-neutral-white: #FEFEFA;
+  --color-neutral-grey: #374151;
+  --color-neutral-light-grey: #d1d5db;
+}
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
 }
-
+.hidden-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.hidden-scrollbar::-webkit-scrollbar {
+  display: none;
+}
 body {
   background: var(--background);
   color: var(--foreground);
