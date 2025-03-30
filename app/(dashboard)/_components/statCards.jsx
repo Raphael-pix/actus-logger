@@ -52,10 +52,11 @@ const StatCards = () => {
           key={index}
           className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100"
         >
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-4">
             <div className={`p-2 rounded-lg ${stat.bgColor}`}>
-              <stat.icon className={`w-5 h-5 ${stat.textColor}`} />
+              <stat.icon className={`w-6 h-6 ${stat.textColor}`} />
             </div>
+            {/*  
             <div
               className={`flex items-center gap-1 text-sm ${
                 stat.trend > 0 ? "text-green-500" : "text-red-500"
@@ -71,12 +72,13 @@ const StatCards = () => {
               stat.trend !== 0  &&  <span>{Math.abs(stat.trend).toFixed(1)}%</span>
               }
             </div>
-          </div>
-          <div className="space-y-1">
-            <h3 className="text-neutral-grey text-sm">{stat.label}</h3>
+            */}
+            <div className="space-y-1">
             <p className="text-2xl text-neutral-black font-semibold">
-              {stat.value}
-            </p>
+                {stat.value}
+              </p>
+              <h3 className="text-neutral-grey text-sm">{stat.label}</h3>
+            </div>
           </div>
         </div>
       ))}

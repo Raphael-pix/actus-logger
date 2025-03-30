@@ -14,7 +14,7 @@ const Notifications = () => {
       <button
         onClick={() => setShowNotifications(!showNotifications)}
         className={clsx(
-          "p-2 rounded-lg transition-colors relative",
+          "p-2 rounded-lg transition-colors relative cursor-pointer",
           showNotifications
             ? "bg-neutral-black text-neutral-white"
             : "text-neutral-black bg-transparent"

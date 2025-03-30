@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Menu, Search } from "lucide-react";
+import { Menu, Moon, Search } from "lucide-react";
 import Notifications from "./notifications";
 import { useToggleMenu } from "@/store/useToggleMenu";
 import AdminProfile from "./adminProfile";
@@ -30,14 +30,20 @@ const Navbar = () => {
         <div className="flex items-center gap-4">
           <Notifications />
           <button
+          onClick={()=>console.log("DarkMode")}
+          className="p-2 rounded-lg transition-colors relative cursor-pointer"
+          >
+            <Moon size={20}/>
+          </button>
+          <div className="max-lg:hidden">
+            <AdminProfile size="sm" />
+          </div>
+          <button
             onClick={() => openMenu()}
             className="p-2 rounded-lg transition-colors relative text-neutral-black bg-transparent lg:hidden"
           >
             <Menu size={20} />
           </button>
-          <div className="max-lg:hidden">
-            <AdminProfile size="sm" />
-          </div>
         </div>
       </div>
     </div>

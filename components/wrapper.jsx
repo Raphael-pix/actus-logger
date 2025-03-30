@@ -9,7 +9,7 @@ const Wrapper = ({ children }) => {
     <div>
       <main
         className={`min-h-screen transition-all duration-300 ease-in-out bg-white 
-        ${isSidebarOpen ? "lg:ml-[280px]" : "lg:ml-20"}`}
+        ${isSidebarOpen ? "lg:ml-[250px]" : "lg:ml-20"}`}
       >
         {children}
       </main>

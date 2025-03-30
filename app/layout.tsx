@@ -34,7 +34,7 @@ export default function RootLayout({
           <Sidebar />
           <Wrapper>
             <Navbar />
-            <div className="p-4">{children}</div>
+            <div>{children}</div>
           </Wrapper>
         </div>
       </body>

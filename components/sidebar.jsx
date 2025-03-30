@@ -4,20 +4,12 @@ import React from "react";
 import Link from "next/link";
 import {
   LayoutDashboard,
-  Users,
-  FileText,
-  Image,
-  Settings,
   LogOut,
-  Briefcase,
-  TrendingUp,
-  ListChecks,
-  MessageSquare,
-  Folder,
-  Share2,
-  Files,
   ChevronRight,
   X,
+  Monitor,
+  FileCheck2,
+  Settings,
 } from "lucide-react";
 import clsx from "clsx";
 import { usePathname, useRouter } from "next/navigation";
@@ -26,45 +18,9 @@ import { useSidebar } from "@/store/useSidebar";
 import { useToggleMenu } from "@/store/useToggleMenu";
 
 const menuItems = [
-  { name: "Dashboard", icon: LayoutDashboard, path: "/admin/dashboard" },
-  {
-    name: "Content",
-    icon: Files,
-    children: [
-      { name: "Projects", icon: Briefcase, path: "/admin/projects" },
-      { name: "Project Types", icon: Folder, path: "/admin/project-types" },
-      { name: "Services", icon: ListChecks, path: "/admin/services" },
-      { name: "Blog Posts", icon: FileText, path: "/admin/blogs" },
-      {
-        name: "Testimonials",
-        icon: MessageSquare,
-        path: "/admin/testimonials",
-      },
-      { name: "Others", icon: Files, path: "/admin/others" },
-    ],
-  },
-  {
-    name: "Management",
-    icon: Users,
-    children: [
-      { name: "Team Members", icon: Users, path: "/admin/members" },
-      { name: "Media Library", icon: Image, path: "/admin/media" },
-      {
-        name: "Project Requests",
-        icon: MessageSquare,
-        path: "/admin/requests",
-      },
-      { name: "Trends", icon: TrendingUp, path: "/admin/trends" },
-    ],
-  },
-  {
-    name: "System",
-    icon: Settings,
-    children: [
-      { name: "Social Media", icon: Share2, path: "/admin/social" },
-      { name: "Settings", icon: Settings, path: "/admin/settings" },
-    ],
-  },
+  { name: "Dashboard", icon: LayoutDashboard, path: "/" },
+  { name: "Channels", icon: Monitor, path: "/channels" },
+  { name: "Reports", icon: FileCheck2, path: "/reports" },
 ];
 
 const MenuLink = ({ item, isActive, isSidebarOpen }) => {
@@ -102,20 +58,19 @@ const MenuLink = ({ item, isActive, isSidebarOpen }) => {
   );
 };
 
-const Sidebar = ({
-}) => {
+const Sidebar = ({}) => {
   const pathname = usePathname();
-  const {isSidebarOpen,openSidebar,closeSidebar} = useSidebar();
-  const {isMenuOpen,closeMenu} = useToggleMenu();
+  const { isSidebarOpen, openSidebar, closeSidebar } = useSidebar();
+  const { isMenuOpen, closeMenu } = useToggleMenu();
   const router = useRouter();
 
-  const handleToggleSidebar = ()=>{
-    if(isSidebarOpen){
-        closeSidebar();
-    }else{
-        openSidebar();
+  const handleToggleSidebar = () => {
+    if (isSidebarOpen) {
+      closeSidebar();
+    } else {
+      openSidebar();
     }
-  }
+  };
   const handleLogout = async () => {
     try {
       const response = await fetch("/api/admin/logout", {
@@ -136,11 +91,11 @@ const Sidebar = ({
     <>
       <motion.aside
         initial={false}
-        animate={{ width: isSidebarOpen ? "280px" : "80px" }}
+        animate={{ width: isSidebarOpen ? "250px" : "80px" }}
         className={clsx(
           "fixed top-0 left-0 h-full bg-neutral-white text-neutral-black border-r border-neutral-light-grey shadow-sm shadow-neutral-light-grey z-30 transition-all duration-300 ease-in-out",
-          isSidebarOpen ? "w-[280px]" : "w-20",
-          "overflow-y-scroll hidden-scrollbar hidden lg:block"
+          isSidebarOpen ? "w-[250px]" : "w-20",
+          "overflow-y-scroll hidden-scrollbar hidden lg:flex lg:flex-col"
         )}
       >
         <div className="p-4 flex items-center justify-between">
@@ -150,14 +105,14 @@ const Sidebar = ({
                 opacity: isSidebarOpen ? 1 : 0,
                 width: isSidebarOpen ? "auto" : 0,
               }}
-              className="text-xl font-bold text-neutral-black overflow-hidden whitespace-nowrap"
+              className="text-xl uppercase font-bold text-neutral-black overflow-hidden whitespace-nowrap"
             >
               Actus Logger
             </motion.h1>
           </div>
           <button
-            onClick={handleToggleSidebar }
-            className="p-2 rounded-lg transition-colors text-neutral-black/80 hover:text-neutral-black bg-transparent"
+            onClick={handleToggleSidebar}
+            className="p-2 rounded-lg transition-colors text-neutral-black/80 hover:text-neutral-black bg-transparent cursor-pointer"
           >
             <ChevronRight
               className={clsx(
@@ -219,21 +174,38 @@ const Sidebar = ({
             );
           })}
         </nav>
-        <button
-          onClick={handleLogout}
-          className="flex items-center gap-3 px-3 py-2 text-red-600 rounded-lg mt-2 bg-transparent"
-        >
-          <LogOut size={20} />
-          <motion.span
-            animate={{
-              opacity: isSidebarOpen ? 1 : 0,
-              width: isSidebarOpen ? "auto" : 0,
-            }}
-            className="font-semibold font-sm overflow-hidden whitespace-nowrap"
+        <div className="justify-end px-2 mt-auto">
+          <Link
+            href="/settings"
+            className="flex items-center gap-3 px-3 py-2 text-primary-grey rounded-lg mt-2 hover:text-primary-black hover:font-medium"
           >
-            Logout
-          </motion.span>
-        </button>
+            <Settings size={20} />
+            <motion.span
+              animate={{
+                opacity: isSidebarOpen ? 1 : 0,
+                width: isSidebarOpen ? "auto" : 0,
+              }}
+              className="font-sm overflow-hidden whitespace-nowrap"
+            >
+              Settings
+            </motion.span>
+          </Link>
+          <button
+            onClick={handleLogout}
+            className="flex items-center gap-3 px-3 py-2 text-red-600 rounded-lg mt-2 bg-transparent cursor-pointer"
+          >
+            <LogOut size={20} />
+            <motion.span
+              animate={{
+                opacity: isSidebarOpen ? 1 : 0,
+                width: isSidebarOpen ? "auto" : 0,
+              }}
+              className="font-semibold font-sm overflow-hidden whitespace-nowrap"
+            >
+              Logout
+            </motion.span>
+          </button>
+        </div>
       </motion.aside>
       {/* Mobile menu */}
       <AnimatePresence>
@@ -303,6 +275,21 @@ const Sidebar = ({
                   );
                 })}
               </nav>
+              <Link
+                href="/settings"
+                className="flex items-center gap-3 px-3 py-2 text-primary-grey rounded-lg mt-2 hover:text-primary-black"
+              >
+                <Settings size={20} />
+                <motion.span
+                  animate={{
+                    opacity: isSidebarOpen ? 1 : 0,
+                    width: isSidebarOpen ? "auto" : 0,
+                  }}
+                  className="font-semibold font-sm overflow-hidden whitespace-nowrap"
+                >
+                  Settings
+                </motion.span>
+              </Link>
               <button
                 onClick={handleLogout}
                 className="flex items-center gap-3 px-3 py-2 text-red-600 rounded-lg mt-2 bg-transparent"
