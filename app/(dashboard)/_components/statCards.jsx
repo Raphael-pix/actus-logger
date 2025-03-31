@@ -54,7 +54,7 @@ const StatCards = () => {
         >
           <div className="flex items-center gap-4">
             <div className={`p-2 rounded-lg ${stat.bgColor}`}>
-              <stat.icon className={`w-6 h-6 ${stat.textColor}`} />
+              <stat.icon className={`w-5 h-5 ${stat.textColor}`} />
             </div>
             {/*  
             <div

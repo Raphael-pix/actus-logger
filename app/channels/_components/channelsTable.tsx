@@ -1,70 +1,88 @@
-import { reportColumns, Report } from "@/components/ui/columns";
-import { DataTable } from "@/components/ui/data-table";
+import React from "react";
+import { Channel } from "@/components/ui/columns";
+import ChannelsTableWrapper from "./channelsTableWrapper";
 
-async function getData(): Promise<Report[]> {
+async function getData(): Promise<Channel[]> {
   // Fetch data from your API here.
   return [
     {
-      id: "728ed52f",
-      name: "Report on Channel clarity in ACTMombasa 0n 23/02/25",
-      createdBy: "Raphael",
-      date: new Date("2025-03-21").toLocaleDateString(),
-      type: "exel",
+      id: "1",
+      name: "Citizen TV",
+      frequency: "530 MHz",
+      type: "tv",
+      comment: "clear/OK",
     },
     {
-      id: "489e1d42",
-      name: "Report on Channel clarity in ACTNairobi 0n 23/02/25",
-      createdBy: "Daniel",
-      date: new Date("2025-03-21").toLocaleDateString(),
-      type: "exel",
+      id: "2",
+      name: "KTN News",
+      frequency: "490 MHz",
+      type: "tv",
+      comment: "less glitches",
     },
     {
-      id: "881f1d52",
-      name: "Report on Channel clarity in CACenter01 0n 23/02/25",
-      createdBy: "Daniel",
-      date: new Date("2025-03-21").toLocaleDateString(),
-      type: "exel",
+      id: "3",
+      name: "NTV Kenya",
+      frequency: "570 MHz",
+      type: "tv",
+      comment: "clear/Low power",
     },
     {
-      id: "175et7d2",
-      name: "Report on Channel clarity in CACenter02 0n 23/02/25",
-      createdBy: "Daniel",
-      date: new Date("2025-03-21").toLocaleDateString(),
-      type: "exel",
+      id: "4",
+      name: "KBC Channel 1",
+      frequency: "520 MHz",
+      type: "tv",
+      comment: "clear/OK",
     },
     {
-      id: "4247u6f2",
-      name: "Report on Channel clarity in ACTKahawa 0n 23/02/25",
-      createdBy: "Shadaai",
-      date: new Date("2025-03-21").toLocaleDateString(),
-      type: "pdf",
+      id: "5",
+      name: "Inooro TV",
+      frequency: "560 MHz",
+      type: "tv",
+      comment: "excessive glitches",
     },
     {
-      id: "359v8n82",
-      name: "Report on Channel clarity in ACTMuranga 0n 23/02/25",
-      createdBy: "Shadaai",
-      date: new Date("2025-03-21").toLocaleDateString(),
-      type: "pdf",
+      id: "6",
+      name: "Radio Citizen",
+      frequency: "106.7 FM",
+      type: "radio",
+      comment: "clear/OK",
     },
     {
-      id: "962v2s43",
-      name: "Report on Channel clarity in ACTNyeri 0n 23/02/25",
-      createdBy: "Raphael",
-      date: new Date("2025-03-21").toLocaleDateString(),
-      type: "exel",
+      id: "7",
+      name: "Classic 105",
+      frequency: "105.2 FM",
+      type: "radio",
+      comment: "clear/OK",
     },
+    {
+      id: "8",
+      name: "Kiss 100",
+      frequency: "100.3 FM",
+      type: "radio",
+      comment: "less glitches",
+    },
+    {
+      id: "9",
+      name: "Radio Jambo",
+      frequency: "97.5 FM",
+      type: "radio",
+      comment: "static",
+    },
+    {
+      id: "10",
+      name: "Hope FM",
+      frequency: "93.3 FM",
+      type: "radio",
+      comment: "clear/Low power",
+    }
   ];
 }
-
 export default async function ChannelsTable() {
   const data = await getData();
 
   return (
-    <div className="container mx-auto py-4">
-      <div className="flex items-center justify-between mb-2">
-        <h2 className="text-xl text-neutral-black font-semibold">Reports</h2>
-      </div>
-      <DataTable columns={reportColumns} data={data} />
+    <div className="container mx-auto">
+      <ChannelsTableWrapper data={data} />
     </div>
   );
 }

@@ -2,7 +2,7 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { Checkbox } from "@/components/ui/checkbox";
-import { ArrowUpDown, Delete, MoreHorizontal, Save } from "lucide-react";
+import { ArrowUpDown, ChevronDown, Delete, MoreHorizontal, Save } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -20,6 +20,21 @@ export type Report = {
   createdBy: string;
   date: string;
   type: "exel" | "pdf";
+};
+export type Channel = {
+  id: string;
+  name: string;
+  frequency: string;
+  type: "radio" | "tv";
+  comment:
+    | "white noise"
+    | "no modulatation"
+    | "static"
+    | "clear/OK"
+    | "clear/Low power"
+    | "less glitches"
+    | "no live view"
+    | "excessive glitches";
 };
 
 export const reportColumns: ColumnDef<Report>[] = [
@@ -107,3 +122,99 @@ export const reportColumns: ColumnDef<Report>[] = [
     },
   },
 ];
+
+const commentOptions:{
+  tv:string[],
+  radio:string[]
+} = {
+  tv:[
+    "less glitches",
+    "no live view",
+    "excessive glitches",
+    "clear/OK",
+  ],
+  radio:[
+  "white noise",
+  "no modulation",
+  "static",
+  "clear/Low power"
+  ]
+};
+export function getChannelsColumns(editMode: boolean): ColumnDef<Channel>[] {
+  return [
+    {
+      accessorKey: "name",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Name
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+          </Button>
+        );
+      },
+      cell: ({ row }) => <p className="px-3">{row.getValue("name")}</p>,
+    },
+    {
+      accessorKey: "frequency",
+      header: "Frequency",
+    },
+    {
+      accessorKey: "type",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Type
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+          </Button>
+        );
+      },
+      cell: ({ row }) => (
+        <p className="px-4 capitalize">{row.getValue("type")}</p>
+      ),
+    },
+    {
+      accessorKey: "comment",
+      header: "Comment",
+      cell: ({ row }) => {
+        const rowId = row.original.id;
+        const comment:string = row.getValue("comment");
+        const type: keyof typeof commentOptions = row.getValue("type");
+        const options = commentOptions[type];
+
+        return editMode ? (
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="outline"
+                size="sm"
+                className="flex items-center gap-2"
+              >
+                {comment} <ChevronDown size={14} />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              {options.map((option) => (
+                <DropdownMenuItem
+                  key={option}
+                  onClick={() => {
+                    console.log(`Updating comment for ${rowId} to ${option}`);
+                  }}
+                >
+                  {option}
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        ) : (
+          <p>{comment}</p>
+        );
+      },
+    },
+  ];
+}
