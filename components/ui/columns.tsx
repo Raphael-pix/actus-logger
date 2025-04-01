@@ -4,7 +4,6 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   ArrowUpDown,
-  ChevronDown,
   Delete,
   MoreHorizontal,
   Save,
@@ -19,6 +18,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import CommentComponent from "@/components/commentOptions"
 
 export type Report = {
   id: string;
@@ -125,8 +125,8 @@ const commentOptions: {
   TV: string[];
   Radio: string[];
 } = {
-  TV: ["less glitches", "no live view", "excessive glitches", "clear/OK"],
-  Radio: ["white noise", "no modulation", "static", "clear/Low power"],
+  TV: ["less glitches", "no live view", "excessive glitches", "clear/ok"],
+  Radio: ["white noise", "no modulation", "static", "clear/low power"],
 };
 export function getChannelsColumns(editMode: boolean): ColumnDef<Channel>[] {
   return [
@@ -169,36 +169,14 @@ export function getChannelsColumns(editMode: boolean): ColumnDef<Channel>[] {
     {
       accessorKey: "comment",
       header: "Comment",
-      cell: ({ row }) => {
-        const rowId = row.original.id;
+      
+      cell: ({ row,getValue,table }) => {
         const comment: string = row.getValue("comment");
         const type: keyof typeof commentOptions = row.getValue("type");
         const options = commentOptions[type];
 
         return editMode ? (
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button
-                variant="outline"
-                size="sm"
-                className="flex items-center gap-2"
-              >
-                {comment} <ChevronDown size={14} />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              {options.map((option) => (
-                <DropdownMenuItem
-                  key={option}
-                  onClick={() => {
-                    console.log(`Updating comment for ${rowId} to ${option}`);
-                  }}
-                >
-                  {option}
-                </DropdownMenuItem>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
+         <CommentComponent row={row} table={table} getValue={getValue} options={options}/> 
         ) : (
           <p>{comment}</p>
         );

@@ -27,6 +27,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "./button";
+import CreateReportBtn from "@/components/createReportBtn"
 import { Input } from "@/components/ui/input";
 import { useSearchParams, useRouter } from "next/navigation";
 import { locations } from "@/constant";
@@ -234,9 +235,7 @@ export function ChannelsDataTable<TData, TValue>({
         </Table>
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
-        <Button variant="outline" size="sm">
-          Create Report
-        </Button>
+        <CreateReportBtn table={table} location={locationFilter}/>
         <Button variant="outline" size="sm">
           Save
         </Button>
