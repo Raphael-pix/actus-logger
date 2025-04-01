@@ -3,14 +3,6 @@
 import React from "react";
 import { PieChart, Pie, Cell } from "recharts";
 
-const data = [
-  { name: "White noise", value: 400 },
-  { name: "No modulation", value: 300 },
-  { name: "Static", value: 300 },
-  { name: "Clear/OK", value: 200 },
-  {name:"Clear/Low power", value:100}
-];
-
 const COLORS = ["#D3D3D3", "#808080", "#FB2C36", "#32CD32", "#4682B4"];
 
 const RADIAN = Math.PI / 180;
@@ -39,7 +31,15 @@ const renderCustomizedLabel = ({
   );
 };
 
-const RadioChart = () => {
+const RadioChart = ({count}) => {
+  const data = [
+    { name: "White noise", value: count.whiteNoiseCount },
+    { name: "No modulation", value: count.noModulationCount },
+    { name: "Static", value: count.staticCount },
+    { name: "Clear/OK", value: count.okCount },
+    {name:"Clear/Low power", value:count.lowPowerCount}
+  ];
+  
   return (
     <div className="space-y-1">
       <PieChart width={180} height={180}>
@@ -48,7 +48,6 @@ const RadioChart = () => {
           cx={80}
           cy={80}
           labelLine={false}
-          label={renderCustomizedLabel}
           outerRadius={85}
           fill="#8884d8"
           dataKey="value"

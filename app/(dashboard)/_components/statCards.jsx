@@ -1,19 +1,20 @@
 import React from "react";
-import { stringToColor } from "@/lib/utils";
 import {
-  ArrowDownRight,
-  ArrowUpRight,
   Clock,
   Globe,
   Server,
   ServerCrash,
 } from "lucide-react";
+import { getLocationData } from "@/lib/services";
+import { cn } from "@/lib/utils";
 
-const StatCards = () => {
+const StatCards = async () => {
+  const siteData = await getLocationData();
+
   const quickStats = [
     {
       label: "total sites",
-      value: 74,
+      value: siteData.allSitesCount,
       trend: 0,
       icon: Globe,
       bgColor: "bg-blue-50",
@@ -21,7 +22,7 @@ const StatCards = () => {
     },
     {
       label: "active sites",
-      value: 42,
+      value: siteData.activeSitesCount,
       icon: Server,
       trend: 0,
       bgColor: "bg-green-50",
@@ -29,7 +30,7 @@ const StatCards = () => {
     },
     {
       label: "inactive sites",
-      value: 32,
+      value: siteData.inactiveSitesCount,
       icon: ServerCrash,
       trend: 0,
       bgColor: "bg-red-50",
@@ -74,7 +75,7 @@ const StatCards = () => {
             </div>
             */}
             <div className="space-y-1">
-            <p className="text-2xl text-neutral-black font-semibold">
+            <p className={cn("text-2xl text-neutral-black font-semibold", stat.label === "last updated" && "text-xl")}>
                 {stat.value}
               </p>
               <h3 className="text-neutral-grey text-sm">{stat.label}</h3>

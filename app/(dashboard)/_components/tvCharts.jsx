@@ -3,13 +3,6 @@
 import React from "react";
 import { PieChart, Pie, Cell } from "recharts";
 
-const data = [
-  { name: "Less glitches", value: 400 },
-  { name: "Excessive glitches", value: 300 },
-  { name: "No live view", value: 300 },
-  { name: "Clear/OK", value: 200 },
-];
-
 const COLORS = ["#FFD700", "#FF4500", "#8B0000", "#32CD32"];
 
 const RADIAN = Math.PI / 180;
@@ -39,7 +32,13 @@ const renderCustomizedLabel = ({
   );
 };
 
-const TvChart = () => {
+const TvChart = ({count}) => {
+  const data = [
+    { name: "Less glitches", value: count.lessGlitchesCount },
+    { name: "Excessive glitches", value: count.excessiveGlitchesCount},
+    { name: "No live view", value: count.noLiveViewCount },
+    { name: "Clear/OK", value: count.okCount },
+  ];
   return (
     <div className="space-y-1">
       <PieChart width={180} height={180}>
@@ -48,7 +47,6 @@ const TvChart = () => {
           cx={80}
           cy={80}
           labelLine={false}
-          label={renderCustomizedLabel}
           outerRadius={85}
           fill="#8884d8"
           dataKey="value"

@@ -8,7 +8,6 @@ import {
   VisibilityState,
   flexRender,
   getCoreRowModel,
-  getPaginationRowModel,
   getSortedRowModel,
   getFilteredRowModel,
   useReactTable,
@@ -80,13 +79,13 @@ export function ChannelsDataTable<TData, TValue>({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
+    manualPagination: true, 
     state: {
       sorting,
       columnFilters,
@@ -110,7 +109,7 @@ export function ChannelsDataTable<TData, TValue>({
               />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="start">
+          <DropdownMenuContent align="start" >
             {locations.map((location) => (
               <DropdownMenuCheckboxItem
                 key={location.id}

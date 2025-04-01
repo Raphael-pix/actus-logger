@@ -2,8 +2,12 @@ import React from "react";
 import { BarChart3 } from "lucide-react";
 import TvChart from "./tvCharts"
 import RadioChart from "./radioCharts"
+import { getRadioChannelData, getTVChannelData } from "@/lib/services";
 
-const ChannelCharts = () => {
+const ChannelCharts = async () => {
+
+  const tvData = await getTVChannelData();
+  const radioData = await getRadioChannelData();
   const channelClarityColors = [
     // TV clarity
     { title: "Minimal Glitches", color: "#FFD700", background:"bg-[#FFD700]" }, 
@@ -25,8 +29,8 @@ const ChannelCharts = () => {
         <BarChart3 className="w-5 h-5 text-gray-400" />
       </div>
       <div className="flex flex-col gap-2 items-center justify-between mb-6 lg:flex-row">
-        <TvChart/>
-        <RadioChart/>
+        <TvChart count={tvData}/>
+        <RadioChart count={radioData}/>
       </div>
       <div className="w-full flex flex-wrap gap-2 gap-y-4">
         {

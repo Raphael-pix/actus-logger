@@ -1,5 +1,5 @@
 import { reportColumns, Report } from "@/components/ui/columns";
-import { DataTable } from "@/components/ui/data-table";
+import { ReportsDataTable } from "@/components/ui/reports-table";
 
 async function getData(): Promise<Report[]> {
   // Fetch data from your API here.
@@ -60,11 +60,8 @@ export default async function ReportsTable() {
   const data = await getData();
 
   return (
-    <div className="container mx-auto py-4">
-      <div className="flex items-center justify-between mb-2">
-        <h2 className="text-xl text-neutral-black font-semibold">Reports</h2>
-      </div>
-      <DataTable columns={reportColumns} data={data} />
+    <div className="container mx-auto">
+      <ReportsDataTable columns={reportColumns} data={data} />
     </div>
   );
 }

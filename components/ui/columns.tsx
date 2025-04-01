@@ -2,7 +2,13 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { Checkbox } from "@/components/ui/checkbox";
-import { ArrowUpDown, ChevronDown, Delete, MoreHorizontal, Save } from "lucide-react";
+import {
+  ArrowUpDown,
+  ChevronDown,
+  Delete,
+  MoreHorizontal,
+  Save,
+} from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -24,17 +30,9 @@ export type Report = {
 export type Channel = {
   id: string;
   name: string;
-  frequency: string;
+  title: string;
   type: "radio" | "tv";
-  comment:
-    | "white noise"
-    | "no modulatation"
-    | "static"
-    | "clear/OK"
-    | "clear/Low power"
-    | "less glitches"
-    | "no live view"
-    | "excessive glitches";
+  comment: string;
 };
 
 export const reportColumns: ColumnDef<Report>[] = [
@@ -123,22 +121,12 @@ export const reportColumns: ColumnDef<Report>[] = [
   },
 ];
 
-const commentOptions:{
-  tv:string[],
-  radio:string[]
+const commentOptions: {
+  TV: string[];
+  Radio: string[];
 } = {
-  tv:[
-    "less glitches",
-    "no live view",
-    "excessive glitches",
-    "clear/OK",
-  ],
-  radio:[
-  "white noise",
-  "no modulation",
-  "static",
-  "clear/Low power"
-  ]
+  TV: ["less glitches", "no live view", "excessive glitches", "clear/OK"],
+  Radio: ["white noise", "no modulation", "static", "clear/Low power"],
 };
 export function getChannelsColumns(editMode: boolean): ColumnDef<Channel>[] {
   return [
@@ -158,8 +146,8 @@ export function getChannelsColumns(editMode: boolean): ColumnDef<Channel>[] {
       cell: ({ row }) => <p className="px-3">{row.getValue("name")}</p>,
     },
     {
-      accessorKey: "frequency",
-      header: "Frequency",
+      accessorKey: "title",
+      header: "Title",
     },
     {
       accessorKey: "type",
@@ -183,7 +171,7 @@ export function getChannelsColumns(editMode: boolean): ColumnDef<Channel>[] {
       header: "Comment",
       cell: ({ row }) => {
         const rowId = row.original.id;
-        const comment:string = row.getValue("comment");
+        const comment: string = row.getValue("comment");
         const type: keyof typeof commentOptions = row.getValue("type");
         const options = commentOptions[type];
 
