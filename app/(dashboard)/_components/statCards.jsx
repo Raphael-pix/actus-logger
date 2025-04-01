@@ -51,7 +51,7 @@ const StatCards = async () => {
       {quickStats.map((stat, index) => (
         <div
           key={index}
-          className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100"
+          className="rounded-2xl p-6 shadow-sm border border-accent"
         >
           <div className="flex items-center gap-4">
             <div className={`p-2 rounded-lg ${stat.bgColor}`}>
@@ -75,10 +75,10 @@ const StatCards = async () => {
             </div>
             */}
             <div className="space-y-1">
-            <p className={cn("text-2xl text-neutral-black font-semibold", stat.label === "last updated" && "text-xl")}>
+            <p className={cn("text-2xl font-semibold", stat.label === "last updated" && "text-xl")}>
                 {stat.value}
               </p>
-              <h3 className="text-neutral-grey text-sm">{stat.label}</h3>
+              <h3 className="text-sm">{stat.label}</h3>
             </div>
           </div>
         </div>

@@ -9,7 +9,7 @@ export default async function ReportsTable() {
   return (
     <div className="container mx-auto py-4">
       <div className="flex items-center justify-between mb-2">
-        <h2 className="text-xl text-neutral-black font-semibold">Reports</h2>
+        <h2 className="text-xl font-semibold">Reports</h2>
       </div>
       <ReportsDataTable columns={reportColumns} data={data} />
     </div>

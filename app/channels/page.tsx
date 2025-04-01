@@ -6,7 +6,7 @@ export default function ChannelsPage({ searchParams }:{searchParams : {location?
   return (
     <div className="p-2 space-y-6 lg:p-6">
       <div className="flex items-center justify-between mb-2">
-        <h1 className="text-lg font-bold text-neutral-black lg:text-2xl">
+        <h1 className="text-lg font-bold lg:text-2xl">
           Channels
         </h1>
       </div>

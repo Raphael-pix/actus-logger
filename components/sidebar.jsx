@@ -31,8 +31,8 @@ const MenuLink = ({ item, isActive, isSidebarOpen }) => {
       className={clsx(
         "flex items-center gap-3 p-3 rounded-lg mb-1 transition-all",
         isActive
-          ? "bg-neutral-black text-neutral-white"
-          : "text-neutral-grey hover:text-neutral-black"
+          ? "bg-primary text-primary-foreground"
+          : "text-muted-foreground hover:text-foreground"
       )}
     >
       <item.icon size={18} className={`${!isSidebarOpen && "w-full"}`} />
@@ -51,7 +51,7 @@ const MenuLink = ({ item, isActive, isSidebarOpen }) => {
       {isActive && isSidebarOpen && (
         <motion.div
           layoutId="activeTab"
-          className="absolute left-0 w-1 h-8 bg-neutral-black rounded-r-full"
+          className="absolute left-0 w-1 h-8 bg-primary rounded-r-full"
         />
       )}
     </Link>
@@ -93,7 +93,7 @@ const Sidebar = ({}) => {
         initial={false}
         animate={{ width: isSidebarOpen ? "250px" : "80px" }}
         className={clsx(
-          "fixed top-0 left-0 h-full bg-neutral-white text-neutral-black border-r border-neutral-light-grey shadow-sm shadow-neutral-light-grey z-30 transition-all duration-300 ease-in-out",
+          "fixed top-0 left-0 h-full bg-background border-r border-accent shadow-sm shadow-accent z-30 transition-all duration-300 ease-in-out",
           isSidebarOpen ? "w-[250px]" : "w-20",
           "overflow-y-scroll hidden-scrollbar hidden lg:flex lg:flex-col"
         )}
@@ -105,14 +105,14 @@ const Sidebar = ({}) => {
                 opacity: isSidebarOpen ? 1 : 0,
                 width: isSidebarOpen ? "auto" : 0,
               }}
-              className="text-xl uppercase font-bold text-neutral-black overflow-hidden whitespace-nowrap"
+              className="text-xl uppercase font-bold overflow-hidden whitespace-nowrap"
             >
               Actus Logger
             </motion.h1>
           </div>
           <button
             onClick={handleToggleSidebar}
-            className="p-2 rounded-lg transition-colors text-neutral-black/80 hover:text-neutral-black bg-transparent cursor-pointer"
+            className="p-2 rounded-lg transition-colors text-foreground/80 hover:text-foreground bg-transparent cursor-pointer"
           >
             <ChevronRight
               className={clsx(
@@ -222,15 +222,13 @@ const Sidebar = ({}) => {
               initial={{ x: "-100%" }}
               animate={{ x: 0 }}
               exit={{ x: "-100%" }}
-              className="fixed top-0 left-0 h-full w-[280px] bg-neutral-white text-neutral-black z-50 lg:hidden overflow-y-scroll hidden-scrollbar"
+              className="fixed top-0 left-0 h-full w-[280px] flex flex-col bg-background z-50 lg:hidden overflow-y-scroll hidden-scrollbar"
             >
               <div className="p-4 flex items-center justify-between">
-                <h1 className="text-xl font-bold text-neutral-black">
-                  GRAPHIQ.ART
-                </h1>
+                <h1 className="text-xl font-bold">ACTUS LOGGER</h1>
                 <button
                   onClick={() => closeMenu()}
-                  className="p-2 rounded-lg text-neutral-black/80 hover:text-neutral-black bg-transparent"
+                  className="p-2 rounded-lg text-foreground/80 hover:text-foreground bg-transparent"
                 >
                   <X size={20} />
                 </button>
@@ -240,7 +238,7 @@ const Sidebar = ({}) => {
                   if (item.children) {
                     return (
                       <div key={index} className="mb-4">
-                        <div className="flex items-center gap-3 p-3 text-neutral-black">
+                        <div className="flex items-center gap-3 p-3">
                           {/* <item.icon size={18} /> */}
                           <span className="font-semibold text-sm uppercase overflow-hidden whitespace-nowrap">
                             {item.name}
@@ -275,36 +273,38 @@ const Sidebar = ({}) => {
                   );
                 })}
               </nav>
-              <Link
-                href="/settings"
-                className="flex items-center gap-3 px-3 py-2 text-primary-grey rounded-lg mt-2 hover:text-primary-black"
-              >
-                <Settings size={20} />
-                <motion.span
-                  animate={{
-                    opacity: isSidebarOpen ? 1 : 0,
-                    width: isSidebarOpen ? "auto" : 0,
-                  }}
-                  className="font-semibold font-sm overflow-hidden whitespace-nowrap"
+              <div className="py-4 mt-auto">
+                <Link
+                  href="/settings"
+                  className="flex items-center gap-3 px-3 py-2 text-primary-grey rounded-lg mt-2 "
                 >
-                  Settings
-                </motion.span>
-              </Link>
-              <button
-                onClick={handleLogout}
-                className="flex items-center gap-3 px-3 py-2 text-red-600 rounded-lg mt-2 bg-transparent"
-              >
-                <LogOut size={20} />
-                <motion.span
-                  animate={{
-                    opacity: isSidebarOpen ? 1 : 0,
-                    width: isSidebarOpen ? "auto" : 0,
-                  }}
-                  className="font-semibold font-sm overflow-hidden whitespace-nowrap"
+                  <Settings size={20} />
+                  <motion.span
+                    animate={{
+                      opacity: isSidebarOpen ? 1 : 0,
+                      width: isSidebarOpen ? "auto" : 0,
+                    }}
+                    className="font-semibold font-sm overflow-hidden whitespace-nowrap"
+                  >
+                    Settings
+                  </motion.span>
+                </Link>
+                <button
+                  onClick={handleLogout}
+                  className="flex items-center gap-3 px-3 py-2 text-red-600 rounded-lg mt-2 bg-transparent"
                 >
-                  Logout
-                </motion.span>
-              </button>
+                  <LogOut size={20} />
+                  <motion.span
+                    animate={{
+                      opacity: isSidebarOpen ? 1 : 0,
+                      width: isSidebarOpen ? "auto" : 0,
+                    }}
+                    className="font-semibold font-sm overflow-hidden whitespace-nowrap"
+                  >
+                    Logout
+                  </motion.span>
+                </button>
+              </div>
             </motion.aside>
           </>
         )}

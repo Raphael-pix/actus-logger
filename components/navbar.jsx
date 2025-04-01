@@ -9,6 +9,11 @@ import AdminProfile from "./adminProfile";
 const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const { openMenu } = useToggleMenu();
+
+  function toggleTheme() {
+    document.documentElement.classList.toggle('dark');
+  }
+  
   return (
     <div className="relative">
       <div className="flex items-center justify-between px-4 py-3">
@@ -30,7 +35,7 @@ const Navbar = () => {
         <div className="flex items-center gap-4">
           <Notifications />
           <button
-          onClick={()=>console.log("DarkMode")}
+          onClick={toggleTheme}
           className="p-2 rounded-lg transition-colors relative cursor-pointer"
           >
             <Moon size={20}/>
@@ -40,7 +45,7 @@ const Navbar = () => {
           </div>
           <button
             onClick={() => openMenu()}
-            className="p-2 rounded-lg transition-colors relative text-neutral-black bg-transparent lg:hidden"
+            className="p-2 rounded-lg transition-colors relative bg-transparent cursor-pointer lg:hidden"
           >
             <Menu size={20} />
           </button>

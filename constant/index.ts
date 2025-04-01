@@ -4,6 +4,7 @@ declare type Location = {
   title:string
 };
 export const locations: Location[] = [
+  { id: "a1g6d4c3", name:"all", title: "all" },
   { id: "a1f6d4c3", name:"CACENTRE-1", title: "CACenter01" },
   { id: "d9e7b5a2", name:"CACENTRE-2", title: "CACenter02" },
   { id: "b3c8f1d6", name:"CACENTRE-3", title: "CACenter03" },

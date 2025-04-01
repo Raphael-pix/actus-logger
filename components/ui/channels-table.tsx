@@ -177,7 +177,7 @@ export function ChannelsDataTable<TData, TValue>({
           <Button
             variant="outline"
             size="sm"
-            className={`${isEditing ? "bg-neutral-black text-neutral-white hover:bg-neutral-black hover:text-neutral-white" : "text-neutral-black" } transition-colors cursor-pointer`}
+            className={`${isEditing ? "bg-background text-foreground hover:bg-background hover:text-foreground" : "" } transition-colors cursor-pointer`}
             onClick={toggleEditMode}
           >
             <Pen size={16} />

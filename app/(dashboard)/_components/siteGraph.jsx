@@ -81,9 +81,9 @@ function LineGraph() {
 
 const SiteGraph = () => {
   return (
-    <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 overflow-y-auto hidden-scrollbar">
+    <div className="rounded-2xl p-6 shadow-sm border border-accent overflow-y-auto hidden-scrollbar">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-lg text-neutral-black font-semibold">
+        <h2 className="text-lg font-semibold">
           TV/Radio Performance
         </h2>
         <LineChartIcon className="w-5 h-5 text-gray-400" />

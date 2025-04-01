@@ -37,13 +37,13 @@ export default function AdminProfile({ size = "lg" }) {
         <motion.div className="text-left">
           <motion.p
             animate={{ opacity: 1, width: "auto" }}
-            className={`font-semibold ${textSize} text-neutral-black whitespace-nowrap`}
+            className={`font-semibold ${textSize} whitespace-nowrap`}
           >
             Admin
           </motion.p>
           <motion.p
             animate={{ opacity: 1, width: "auto" }}
-            className="text-xs font-medium text-neutral-grey whitespace-nowrap"
+            className="text-xs font-medium whitespace-nowrap"
           >
             admin
           </motion.p>

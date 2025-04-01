@@ -57,7 +57,7 @@ const RadioChart = ({count}) => {
           ))}
         </Pie>
       </PieChart>
-      <h3 className="text-center text-base text-neutral-black font-semibold font-outfit">Radio</h3>
+      <h3 className="text-center text-base font-semibold font-outfit">Radio</h3>
     </div>
   );
 };

@@ -16,8 +16,8 @@ const Notifications = () => {
         className={clsx(
           "p-2 rounded-lg transition-colors relative cursor-pointer",
           showNotifications
-            ? "bg-neutral-black text-neutral-white"
-            : "text-neutral-black bg-transparent"
+            ? "bg-primary text-primary-foreground"
+            : "text-foreground bg-transparent"
         )}
       >
         <Bell size={20} />
@@ -32,15 +32,15 @@ const Notifications = () => {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
-            className="absolute right-0 mt-2 w-96 bg-white rounded-xl shadow-sm border border-neutral-light-grey overflow-hidden z-50"
+            className="absolute right-0 mt-2 w-96 rounded-xl shadow-sm bg-background border border-accent overflow-hidden z-50"
           >
             <div className="p-4">
-              <h3 className="text-sm font-semibold mb-2 text-neutral-black">
+              <h3 className="text-sm font-semibold mb-2">
                 Notifications
               </h3>
               <div className="space-y-3 max-h-[70vh] overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:bg-[#4A4A4A] [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-transparent">
                 {notifications.length === 0 ? (
-                  <p className="text-lg font-semibold text-neutral-black text-center py-4">
+                  <p className="text-lg font-semibold  text-center py-4">
                     No new notifications
                   </p>
                 ) : (
@@ -49,9 +49,9 @@ const Notifications = () => {
                       key={notification.id}
                       className="flex items-start gap-3 p-3 rounded-lg transition-colors"
                     >
-                      <div className="w-2 h-2 mt-2 bg-neutral-blatext-neutral-black rounded-full" />
+                      <div className="w-2 h-2 mt-2 rounded-full" />
                       <div className="flex-1">
-                        <p className="text-sm font-medium text-neutral-black">
+                        <p className="text-sm font-medium">
                           {notification.title}
                         </p>
                         <p className="text-xs text-[#4A4A4A] mb-1">
@@ -83,14 +83,14 @@ const Notifications = () => {
                               <span className="text-[#4A4A4A] block mb-1">
                                 Description:
                               </span>
-                              <p className="text-neutral-black">
+                              <p className="">
                                 {notification.details.description}
                               </p>
                             </div>
                             <div className="mt-2 pt-2 border-t border-[#D0D0D0]">
                               <Link
                                 href="/admin/requests"
-                                className="text-neutral-black hover:text-[#4A4A4A] text-sm font-medium"
+                                className=" hover:text-[#4A4A4A] text-sm font-medium"
                                 onClick={() => setShowNotifications(false)}
                               >
                                 View Details →
