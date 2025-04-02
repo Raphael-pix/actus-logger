@@ -22,6 +22,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/(dashboard)/_components/quickActions.jsx", "app/(dashboard)/_components/channelCharts.jsx", "app/(dashboard)/_components/statCards.jsx", "lib/prisma.js", "prisma/seed.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/(main)/(dashboard)/_components/quickActions.jsx", "app/(main)/(dashboard)/_components/channelCharts.jsx", "app/(main)/(dashboard)/_components/statCards.jsx", "lib/prisma.js", "prisma/seed.js"],
   "exclude": ["node_modules"]
 }

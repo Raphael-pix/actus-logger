@@ -12,14 +12,28 @@ const RadioChart = dynamic(() => import("./radioCharts"), {
 });
 
 const ChannelCharts = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState({
+    tv: {
+        all: 0,
+        lessGlitches: 0,
+        excessiveGlitches: 0,
+        clear: 0,
+        noLiveView: 0
+    },
+    radio: {
+        all: 0,
+        whiteNoise: 0,
+        lowPower: 0,
+        noModulation: 0,
+        clear: 0,
+        static:0
+    }
+});
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const res = await fetch("/api/channel-data", {
-          method: "GET",
-        });
+        const res = await fetch("/api/channel-data");
         const result = await res.json();
 
         setData(result);
