@@ -179,3 +179,9 @@ export const getReports = async () => {
   const reports = prisma.report.findMany();
   return reports;
 };
+export const getChannelStatus = async () => {
+  const status = prisma.channelStatus.findMany({
+    orderBy: { date: "asc" },
+  });
+  return status;
+};

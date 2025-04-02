@@ -1,6 +1,6 @@
 import StatCards from "./_components/statCards";
 import ChannelCharts from "./_components/channelCharts";
-import SiteGraph from "./_components/siteGraph";
+import PerformanceChart from "./_components/performanceChart"
 import ReportsTable from "./_components/reportsTable";
 
 export default function DashboardPage() {
@@ -15,7 +15,7 @@ export default function DashboardPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <ChannelCharts />
-        <SiteGraph />
+        <PerformanceChart />
       </div>
       <ReportsTable />
     </div>

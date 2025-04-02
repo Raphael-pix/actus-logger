@@ -155,6 +155,15 @@ exports.Prisma.UserLocationScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.ChannelStatusScalarFieldEnum = {
+  id: 'id',
+  date: 'date',
+  clearTvChannels: 'clearTvChannels',
+  unclearTvChannels: 'unclearTvChannels',
+  clearRadioChannels: 'clearRadioChannels',
+  unclearRadioChannels: 'unclearRadioChannels'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -184,7 +193,8 @@ exports.Prisma.ModelName = {
   Channel: 'Channel',
   Report: 'Report',
   User: 'User',
-  UserLocation: 'UserLocation'
+  UserLocation: 'UserLocation',
+  ChannelStatus: 'ChannelStatus'
 };
 
 /**

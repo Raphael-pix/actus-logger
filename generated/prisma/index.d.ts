@@ -38,6 +38,11 @@ export type User = $Result.DefaultSelection<Prisma.$UserPayload>
  * 
  */
 export type UserLocation = $Result.DefaultSelection<Prisma.$UserLocationPayload>
+/**
+ * Model ChannelStatus
+ * 
+ */
+export type ChannelStatus = $Result.DefaultSelection<Prisma.$ChannelStatusPayload>
 
 /**
  * Enums
@@ -221,6 +226,16 @@ export class PrismaClient<
     * ```
     */
   get userLocation(): Prisma.UserLocationDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.channelStatus`: Exposes CRUD operations for the **ChannelStatus** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ChannelStatuses
+    * const channelStatuses = await prisma.channelStatus.findMany()
+    * ```
+    */
+  get channelStatus(): Prisma.ChannelStatusDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -665,7 +680,8 @@ export namespace Prisma {
     Channel: 'Channel',
     Report: 'Report',
     User: 'User',
-    UserLocation: 'UserLocation'
+    UserLocation: 'UserLocation',
+    ChannelStatus: 'ChannelStatus'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -684,7 +700,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "location" | "channel" | "report" | "user" | "userLocation"
+      modelProps: "location" | "channel" | "report" | "user" | "userLocation" | "channelStatus"
       txIsolationLevel: never
     }
     model: {
@@ -1058,6 +1074,80 @@ export namespace Prisma {
           }
         }
       }
+      ChannelStatus: {
+        payload: Prisma.$ChannelStatusPayload<ExtArgs>
+        fields: Prisma.ChannelStatusFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ChannelStatusFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChannelStatusPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ChannelStatusFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChannelStatusPayload>
+          }
+          findFirst: {
+            args: Prisma.ChannelStatusFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChannelStatusPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ChannelStatusFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChannelStatusPayload>
+          }
+          findMany: {
+            args: Prisma.ChannelStatusFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChannelStatusPayload>[]
+          }
+          create: {
+            args: Prisma.ChannelStatusCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChannelStatusPayload>
+          }
+          createMany: {
+            args: Prisma.ChannelStatusCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.ChannelStatusDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChannelStatusPayload>
+          }
+          update: {
+            args: Prisma.ChannelStatusUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChannelStatusPayload>
+          }
+          deleteMany: {
+            args: Prisma.ChannelStatusDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ChannelStatusUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.ChannelStatusUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChannelStatusPayload>
+          }
+          aggregate: {
+            args: Prisma.ChannelStatusAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateChannelStatus>
+          }
+          groupBy: {
+            args: Prisma.ChannelStatusGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ChannelStatusGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.ChannelStatusFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.ChannelStatusAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.ChannelStatusCountArgs<ExtArgs>
+            result: $Utils.Optional<ChannelStatusCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1134,6 +1224,7 @@ export namespace Prisma {
     report?: ReportOmit
     user?: UserOmit
     userLocation?: UserLocationOmit
+    channelStatus?: ChannelStatusOmit
   }
 
   /* Types for Logging */
@@ -6411,6 +6502,995 @@ export namespace Prisma {
 
 
   /**
+   * Model ChannelStatus
+   */
+
+  export type AggregateChannelStatus = {
+    _count: ChannelStatusCountAggregateOutputType | null
+    _avg: ChannelStatusAvgAggregateOutputType | null
+    _sum: ChannelStatusSumAggregateOutputType | null
+    _min: ChannelStatusMinAggregateOutputType | null
+    _max: ChannelStatusMaxAggregateOutputType | null
+  }
+
+  export type ChannelStatusAvgAggregateOutputType = {
+    clearTvChannels: number | null
+    unclearTvChannels: number | null
+    clearRadioChannels: number | null
+    unclearRadioChannels: number | null
+  }
+
+  export type ChannelStatusSumAggregateOutputType = {
+    clearTvChannels: number | null
+    unclearTvChannels: number | null
+    clearRadioChannels: number | null
+    unclearRadioChannels: number | null
+  }
+
+  export type ChannelStatusMinAggregateOutputType = {
+    id: string | null
+    date: Date | null
+    clearTvChannels: number | null
+    unclearTvChannels: number | null
+    clearRadioChannels: number | null
+    unclearRadioChannels: number | null
+  }
+
+  export type ChannelStatusMaxAggregateOutputType = {
+    id: string | null
+    date: Date | null
+    clearTvChannels: number | null
+    unclearTvChannels: number | null
+    clearRadioChannels: number | null
+    unclearRadioChannels: number | null
+  }
+
+  export type ChannelStatusCountAggregateOutputType = {
+    id: number
+    date: number
+    clearTvChannels: number
+    unclearTvChannels: number
+    clearRadioChannels: number
+    unclearRadioChannels: number
+    _all: number
+  }
+
+
+  export type ChannelStatusAvgAggregateInputType = {
+    clearTvChannels?: true
+    unclearTvChannels?: true
+    clearRadioChannels?: true
+    unclearRadioChannels?: true
+  }
+
+  export type ChannelStatusSumAggregateInputType = {
+    clearTvChannels?: true
+    unclearTvChannels?: true
+    clearRadioChannels?: true
+    unclearRadioChannels?: true
+  }
+
+  export type ChannelStatusMinAggregateInputType = {
+    id?: true
+    date?: true
+    clearTvChannels?: true
+    unclearTvChannels?: true
+    clearRadioChannels?: true
+    unclearRadioChannels?: true
+  }
+
+  export type ChannelStatusMaxAggregateInputType = {
+    id?: true
+    date?: true
+    clearTvChannels?: true
+    unclearTvChannels?: true
+    clearRadioChannels?: true
+    unclearRadioChannels?: true
+  }
+
+  export type ChannelStatusCountAggregateInputType = {
+    id?: true
+    date?: true
+    clearTvChannels?: true
+    unclearTvChannels?: true
+    clearRadioChannels?: true
+    unclearRadioChannels?: true
+    _all?: true
+  }
+
+  export type ChannelStatusAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ChannelStatus to aggregate.
+     */
+    where?: ChannelStatusWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ChannelStatuses to fetch.
+     */
+    orderBy?: ChannelStatusOrderByWithRelationInput | ChannelStatusOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ChannelStatusWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ChannelStatuses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ChannelStatuses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ChannelStatuses
+    **/
+    _count?: true | ChannelStatusCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ChannelStatusAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ChannelStatusSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ChannelStatusMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ChannelStatusMaxAggregateInputType
+  }
+
+  export type GetChannelStatusAggregateType<T extends ChannelStatusAggregateArgs> = {
+        [P in keyof T & keyof AggregateChannelStatus]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateChannelStatus[P]>
+      : GetScalarType<T[P], AggregateChannelStatus[P]>
+  }
+
+
+
+
+  export type ChannelStatusGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ChannelStatusWhereInput
+    orderBy?: ChannelStatusOrderByWithAggregationInput | ChannelStatusOrderByWithAggregationInput[]
+    by: ChannelStatusScalarFieldEnum[] | ChannelStatusScalarFieldEnum
+    having?: ChannelStatusScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ChannelStatusCountAggregateInputType | true
+    _avg?: ChannelStatusAvgAggregateInputType
+    _sum?: ChannelStatusSumAggregateInputType
+    _min?: ChannelStatusMinAggregateInputType
+    _max?: ChannelStatusMaxAggregateInputType
+  }
+
+  export type ChannelStatusGroupByOutputType = {
+    id: string
+    date: Date
+    clearTvChannels: number
+    unclearTvChannels: number
+    clearRadioChannels: number
+    unclearRadioChannels: number
+    _count: ChannelStatusCountAggregateOutputType | null
+    _avg: ChannelStatusAvgAggregateOutputType | null
+    _sum: ChannelStatusSumAggregateOutputType | null
+    _min: ChannelStatusMinAggregateOutputType | null
+    _max: ChannelStatusMaxAggregateOutputType | null
+  }
+
+  type GetChannelStatusGroupByPayload<T extends ChannelStatusGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ChannelStatusGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ChannelStatusGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ChannelStatusGroupByOutputType[P]>
+            : GetScalarType<T[P], ChannelStatusGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ChannelStatusSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    date?: boolean
+    clearTvChannels?: boolean
+    unclearTvChannels?: boolean
+    clearRadioChannels?: boolean
+    unclearRadioChannels?: boolean
+  }, ExtArgs["result"]["channelStatus"]>
+
+
+
+  export type ChannelStatusSelectScalar = {
+    id?: boolean
+    date?: boolean
+    clearTvChannels?: boolean
+    unclearTvChannels?: boolean
+    clearRadioChannels?: boolean
+    unclearRadioChannels?: boolean
+  }
+
+  export type ChannelStatusOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "date" | "clearTvChannels" | "unclearTvChannels" | "clearRadioChannels" | "unclearRadioChannels", ExtArgs["result"]["channelStatus"]>
+
+  export type $ChannelStatusPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ChannelStatus"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      date: Date
+      clearTvChannels: number
+      unclearTvChannels: number
+      clearRadioChannels: number
+      unclearRadioChannels: number
+    }, ExtArgs["result"]["channelStatus"]>
+    composites: {}
+  }
+
+  type ChannelStatusGetPayload<S extends boolean | null | undefined | ChannelStatusDefaultArgs> = $Result.GetResult<Prisma.$ChannelStatusPayload, S>
+
+  type ChannelStatusCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ChannelStatusFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ChannelStatusCountAggregateInputType | true
+    }
+
+  export interface ChannelStatusDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ChannelStatus'], meta: { name: 'ChannelStatus' } }
+    /**
+     * Find zero or one ChannelStatus that matches the filter.
+     * @param {ChannelStatusFindUniqueArgs} args - Arguments to find a ChannelStatus
+     * @example
+     * // Get one ChannelStatus
+     * const channelStatus = await prisma.channelStatus.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ChannelStatusFindUniqueArgs>(args: SelectSubset<T, ChannelStatusFindUniqueArgs<ExtArgs>>): Prisma__ChannelStatusClient<$Result.GetResult<Prisma.$ChannelStatusPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ChannelStatus that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ChannelStatusFindUniqueOrThrowArgs} args - Arguments to find a ChannelStatus
+     * @example
+     * // Get one ChannelStatus
+     * const channelStatus = await prisma.channelStatus.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ChannelStatusFindUniqueOrThrowArgs>(args: SelectSubset<T, ChannelStatusFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ChannelStatusClient<$Result.GetResult<Prisma.$ChannelStatusPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ChannelStatus that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChannelStatusFindFirstArgs} args - Arguments to find a ChannelStatus
+     * @example
+     * // Get one ChannelStatus
+     * const channelStatus = await prisma.channelStatus.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ChannelStatusFindFirstArgs>(args?: SelectSubset<T, ChannelStatusFindFirstArgs<ExtArgs>>): Prisma__ChannelStatusClient<$Result.GetResult<Prisma.$ChannelStatusPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ChannelStatus that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChannelStatusFindFirstOrThrowArgs} args - Arguments to find a ChannelStatus
+     * @example
+     * // Get one ChannelStatus
+     * const channelStatus = await prisma.channelStatus.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ChannelStatusFindFirstOrThrowArgs>(args?: SelectSubset<T, ChannelStatusFindFirstOrThrowArgs<ExtArgs>>): Prisma__ChannelStatusClient<$Result.GetResult<Prisma.$ChannelStatusPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ChannelStatuses that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChannelStatusFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ChannelStatuses
+     * const channelStatuses = await prisma.channelStatus.findMany()
+     * 
+     * // Get first 10 ChannelStatuses
+     * const channelStatuses = await prisma.channelStatus.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const channelStatusWithIdOnly = await prisma.channelStatus.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ChannelStatusFindManyArgs>(args?: SelectSubset<T, ChannelStatusFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChannelStatusPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ChannelStatus.
+     * @param {ChannelStatusCreateArgs} args - Arguments to create a ChannelStatus.
+     * @example
+     * // Create one ChannelStatus
+     * const ChannelStatus = await prisma.channelStatus.create({
+     *   data: {
+     *     // ... data to create a ChannelStatus
+     *   }
+     * })
+     * 
+     */
+    create<T extends ChannelStatusCreateArgs>(args: SelectSubset<T, ChannelStatusCreateArgs<ExtArgs>>): Prisma__ChannelStatusClient<$Result.GetResult<Prisma.$ChannelStatusPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ChannelStatuses.
+     * @param {ChannelStatusCreateManyArgs} args - Arguments to create many ChannelStatuses.
+     * @example
+     * // Create many ChannelStatuses
+     * const channelStatus = await prisma.channelStatus.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ChannelStatusCreateManyArgs>(args?: SelectSubset<T, ChannelStatusCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a ChannelStatus.
+     * @param {ChannelStatusDeleteArgs} args - Arguments to delete one ChannelStatus.
+     * @example
+     * // Delete one ChannelStatus
+     * const ChannelStatus = await prisma.channelStatus.delete({
+     *   where: {
+     *     // ... filter to delete one ChannelStatus
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ChannelStatusDeleteArgs>(args: SelectSubset<T, ChannelStatusDeleteArgs<ExtArgs>>): Prisma__ChannelStatusClient<$Result.GetResult<Prisma.$ChannelStatusPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ChannelStatus.
+     * @param {ChannelStatusUpdateArgs} args - Arguments to update one ChannelStatus.
+     * @example
+     * // Update one ChannelStatus
+     * const channelStatus = await prisma.channelStatus.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ChannelStatusUpdateArgs>(args: SelectSubset<T, ChannelStatusUpdateArgs<ExtArgs>>): Prisma__ChannelStatusClient<$Result.GetResult<Prisma.$ChannelStatusPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ChannelStatuses.
+     * @param {ChannelStatusDeleteManyArgs} args - Arguments to filter ChannelStatuses to delete.
+     * @example
+     * // Delete a few ChannelStatuses
+     * const { count } = await prisma.channelStatus.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ChannelStatusDeleteManyArgs>(args?: SelectSubset<T, ChannelStatusDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ChannelStatuses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChannelStatusUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ChannelStatuses
+     * const channelStatus = await prisma.channelStatus.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ChannelStatusUpdateManyArgs>(args: SelectSubset<T, ChannelStatusUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one ChannelStatus.
+     * @param {ChannelStatusUpsertArgs} args - Arguments to update or create a ChannelStatus.
+     * @example
+     * // Update or create a ChannelStatus
+     * const channelStatus = await prisma.channelStatus.upsert({
+     *   create: {
+     *     // ... data to create a ChannelStatus
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ChannelStatus we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ChannelStatusUpsertArgs>(args: SelectSubset<T, ChannelStatusUpsertArgs<ExtArgs>>): Prisma__ChannelStatusClient<$Result.GetResult<Prisma.$ChannelStatusPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ChannelStatuses that matches the filter.
+     * @param {ChannelStatusFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const channelStatus = await prisma.channelStatus.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: ChannelStatusFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a ChannelStatus.
+     * @param {ChannelStatusAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const channelStatus = await prisma.channelStatus.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: ChannelStatusAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of ChannelStatuses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChannelStatusCountArgs} args - Arguments to filter ChannelStatuses to count.
+     * @example
+     * // Count the number of ChannelStatuses
+     * const count = await prisma.channelStatus.count({
+     *   where: {
+     *     // ... the filter for the ChannelStatuses we want to count
+     *   }
+     * })
+    **/
+    count<T extends ChannelStatusCountArgs>(
+      args?: Subset<T, ChannelStatusCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ChannelStatusCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ChannelStatus.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChannelStatusAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ChannelStatusAggregateArgs>(args: Subset<T, ChannelStatusAggregateArgs>): Prisma.PrismaPromise<GetChannelStatusAggregateType<T>>
+
+    /**
+     * Group by ChannelStatus.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChannelStatusGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ChannelStatusGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ChannelStatusGroupByArgs['orderBy'] }
+        : { orderBy?: ChannelStatusGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ChannelStatusGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetChannelStatusGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ChannelStatus model
+   */
+  readonly fields: ChannelStatusFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ChannelStatus.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ChannelStatusClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ChannelStatus model
+   */ 
+  interface ChannelStatusFieldRefs {
+    readonly id: FieldRef<"ChannelStatus", 'String'>
+    readonly date: FieldRef<"ChannelStatus", 'DateTime'>
+    readonly clearTvChannels: FieldRef<"ChannelStatus", 'Int'>
+    readonly unclearTvChannels: FieldRef<"ChannelStatus", 'Int'>
+    readonly clearRadioChannels: FieldRef<"ChannelStatus", 'Int'>
+    readonly unclearRadioChannels: FieldRef<"ChannelStatus", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ChannelStatus findUnique
+   */
+  export type ChannelStatusFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChannelStatus
+     */
+    select?: ChannelStatusSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChannelStatus
+     */
+    omit?: ChannelStatusOmit<ExtArgs> | null
+    /**
+     * Filter, which ChannelStatus to fetch.
+     */
+    where: ChannelStatusWhereUniqueInput
+  }
+
+  /**
+   * ChannelStatus findUniqueOrThrow
+   */
+  export type ChannelStatusFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChannelStatus
+     */
+    select?: ChannelStatusSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChannelStatus
+     */
+    omit?: ChannelStatusOmit<ExtArgs> | null
+    /**
+     * Filter, which ChannelStatus to fetch.
+     */
+    where: ChannelStatusWhereUniqueInput
+  }
+
+  /**
+   * ChannelStatus findFirst
+   */
+  export type ChannelStatusFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChannelStatus
+     */
+    select?: ChannelStatusSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChannelStatus
+     */
+    omit?: ChannelStatusOmit<ExtArgs> | null
+    /**
+     * Filter, which ChannelStatus to fetch.
+     */
+    where?: ChannelStatusWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ChannelStatuses to fetch.
+     */
+    orderBy?: ChannelStatusOrderByWithRelationInput | ChannelStatusOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ChannelStatuses.
+     */
+    cursor?: ChannelStatusWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ChannelStatuses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ChannelStatuses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ChannelStatuses.
+     */
+    distinct?: ChannelStatusScalarFieldEnum | ChannelStatusScalarFieldEnum[]
+  }
+
+  /**
+   * ChannelStatus findFirstOrThrow
+   */
+  export type ChannelStatusFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChannelStatus
+     */
+    select?: ChannelStatusSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChannelStatus
+     */
+    omit?: ChannelStatusOmit<ExtArgs> | null
+    /**
+     * Filter, which ChannelStatus to fetch.
+     */
+    where?: ChannelStatusWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ChannelStatuses to fetch.
+     */
+    orderBy?: ChannelStatusOrderByWithRelationInput | ChannelStatusOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ChannelStatuses.
+     */
+    cursor?: ChannelStatusWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ChannelStatuses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ChannelStatuses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ChannelStatuses.
+     */
+    distinct?: ChannelStatusScalarFieldEnum | ChannelStatusScalarFieldEnum[]
+  }
+
+  /**
+   * ChannelStatus findMany
+   */
+  export type ChannelStatusFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChannelStatus
+     */
+    select?: ChannelStatusSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChannelStatus
+     */
+    omit?: ChannelStatusOmit<ExtArgs> | null
+    /**
+     * Filter, which ChannelStatuses to fetch.
+     */
+    where?: ChannelStatusWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ChannelStatuses to fetch.
+     */
+    orderBy?: ChannelStatusOrderByWithRelationInput | ChannelStatusOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ChannelStatuses.
+     */
+    cursor?: ChannelStatusWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ChannelStatuses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ChannelStatuses.
+     */
+    skip?: number
+    distinct?: ChannelStatusScalarFieldEnum | ChannelStatusScalarFieldEnum[]
+  }
+
+  /**
+   * ChannelStatus create
+   */
+  export type ChannelStatusCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChannelStatus
+     */
+    select?: ChannelStatusSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChannelStatus
+     */
+    omit?: ChannelStatusOmit<ExtArgs> | null
+    /**
+     * The data needed to create a ChannelStatus.
+     */
+    data: XOR<ChannelStatusCreateInput, ChannelStatusUncheckedCreateInput>
+  }
+
+  /**
+   * ChannelStatus createMany
+   */
+  export type ChannelStatusCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ChannelStatuses.
+     */
+    data: ChannelStatusCreateManyInput | ChannelStatusCreateManyInput[]
+  }
+
+  /**
+   * ChannelStatus update
+   */
+  export type ChannelStatusUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChannelStatus
+     */
+    select?: ChannelStatusSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChannelStatus
+     */
+    omit?: ChannelStatusOmit<ExtArgs> | null
+    /**
+     * The data needed to update a ChannelStatus.
+     */
+    data: XOR<ChannelStatusUpdateInput, ChannelStatusUncheckedUpdateInput>
+    /**
+     * Choose, which ChannelStatus to update.
+     */
+    where: ChannelStatusWhereUniqueInput
+  }
+
+  /**
+   * ChannelStatus updateMany
+   */
+  export type ChannelStatusUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ChannelStatuses.
+     */
+    data: XOR<ChannelStatusUpdateManyMutationInput, ChannelStatusUncheckedUpdateManyInput>
+    /**
+     * Filter which ChannelStatuses to update
+     */
+    where?: ChannelStatusWhereInput
+    /**
+     * Limit how many ChannelStatuses to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ChannelStatus upsert
+   */
+  export type ChannelStatusUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChannelStatus
+     */
+    select?: ChannelStatusSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChannelStatus
+     */
+    omit?: ChannelStatusOmit<ExtArgs> | null
+    /**
+     * The filter to search for the ChannelStatus to update in case it exists.
+     */
+    where: ChannelStatusWhereUniqueInput
+    /**
+     * In case the ChannelStatus found by the `where` argument doesn't exist, create a new ChannelStatus with this data.
+     */
+    create: XOR<ChannelStatusCreateInput, ChannelStatusUncheckedCreateInput>
+    /**
+     * In case the ChannelStatus was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ChannelStatusUpdateInput, ChannelStatusUncheckedUpdateInput>
+  }
+
+  /**
+   * ChannelStatus delete
+   */
+  export type ChannelStatusDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChannelStatus
+     */
+    select?: ChannelStatusSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChannelStatus
+     */
+    omit?: ChannelStatusOmit<ExtArgs> | null
+    /**
+     * Filter which ChannelStatus to delete.
+     */
+    where: ChannelStatusWhereUniqueInput
+  }
+
+  /**
+   * ChannelStatus deleteMany
+   */
+  export type ChannelStatusDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ChannelStatuses to delete
+     */
+    where?: ChannelStatusWhereInput
+    /**
+     * Limit how many ChannelStatuses to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ChannelStatus findRaw
+   */
+  export type ChannelStatusFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * ChannelStatus aggregateRaw
+   */
+  export type ChannelStatusAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * ChannelStatus without action
+   */
+  export type ChannelStatusDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChannelStatus
+     */
+    select?: ChannelStatusSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChannelStatus
+     */
+    omit?: ChannelStatusOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -6472,6 +7552,18 @@ export namespace Prisma {
   };
 
   export type UserLocationScalarFieldEnum = (typeof UserLocationScalarFieldEnum)[keyof typeof UserLocationScalarFieldEnum]
+
+
+  export const ChannelStatusScalarFieldEnum: {
+    id: 'id',
+    date: 'date',
+    clearTvChannels: 'clearTvChannels',
+    unclearTvChannels: 'unclearTvChannels',
+    clearRadioChannels: 'clearRadioChannels',
+    unclearRadioChannels: 'unclearRadioChannels'
+  };
+
+  export type ChannelStatusScalarFieldEnum = (typeof ChannelStatusScalarFieldEnum)[keyof typeof ChannelStatusScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -6583,6 +7675,20 @@ export namespace Prisma {
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float'
+   */
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float[]'
+   */
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
   /**
    * Deep Input Types
@@ -6905,6 +8011,65 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"UserLocation"> | Date | string
   }
 
+  export type ChannelStatusWhereInput = {
+    AND?: ChannelStatusWhereInput | ChannelStatusWhereInput[]
+    OR?: ChannelStatusWhereInput[]
+    NOT?: ChannelStatusWhereInput | ChannelStatusWhereInput[]
+    id?: StringFilter<"ChannelStatus"> | string
+    date?: DateTimeFilter<"ChannelStatus"> | Date | string
+    clearTvChannels?: IntFilter<"ChannelStatus"> | number
+    unclearTvChannels?: IntFilter<"ChannelStatus"> | number
+    clearRadioChannels?: IntFilter<"ChannelStatus"> | number
+    unclearRadioChannels?: IntFilter<"ChannelStatus"> | number
+  }
+
+  export type ChannelStatusOrderByWithRelationInput = {
+    id?: SortOrder
+    date?: SortOrder
+    clearTvChannels?: SortOrder
+    unclearTvChannels?: SortOrder
+    clearRadioChannels?: SortOrder
+    unclearRadioChannels?: SortOrder
+  }
+
+  export type ChannelStatusWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    date?: Date | string
+    AND?: ChannelStatusWhereInput | ChannelStatusWhereInput[]
+    OR?: ChannelStatusWhereInput[]
+    NOT?: ChannelStatusWhereInput | ChannelStatusWhereInput[]
+    clearTvChannels?: IntFilter<"ChannelStatus"> | number
+    unclearTvChannels?: IntFilter<"ChannelStatus"> | number
+    clearRadioChannels?: IntFilter<"ChannelStatus"> | number
+    unclearRadioChannels?: IntFilter<"ChannelStatus"> | number
+  }, "id" | "date">
+
+  export type ChannelStatusOrderByWithAggregationInput = {
+    id?: SortOrder
+    date?: SortOrder
+    clearTvChannels?: SortOrder
+    unclearTvChannels?: SortOrder
+    clearRadioChannels?: SortOrder
+    unclearRadioChannels?: SortOrder
+    _count?: ChannelStatusCountOrderByAggregateInput
+    _avg?: ChannelStatusAvgOrderByAggregateInput
+    _max?: ChannelStatusMaxOrderByAggregateInput
+    _min?: ChannelStatusMinOrderByAggregateInput
+    _sum?: ChannelStatusSumOrderByAggregateInput
+  }
+
+  export type ChannelStatusScalarWhereWithAggregatesInput = {
+    AND?: ChannelStatusScalarWhereWithAggregatesInput | ChannelStatusScalarWhereWithAggregatesInput[]
+    OR?: ChannelStatusScalarWhereWithAggregatesInput[]
+    NOT?: ChannelStatusScalarWhereWithAggregatesInput | ChannelStatusScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ChannelStatus"> | string
+    date?: DateTimeWithAggregatesFilter<"ChannelStatus"> | Date | string
+    clearTvChannels?: IntWithAggregatesFilter<"ChannelStatus"> | number
+    unclearTvChannels?: IntWithAggregatesFilter<"ChannelStatus"> | number
+    clearRadioChannels?: IntWithAggregatesFilter<"ChannelStatus"> | number
+    unclearRadioChannels?: IntWithAggregatesFilter<"ChannelStatus"> | number
+  }
+
   export type LocationCreateInput = {
     id?: string
     name: string
@@ -7213,6 +8378,65 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     locationId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChannelStatusCreateInput = {
+    id?: string
+    date: Date | string
+    clearTvChannels?: number
+    unclearTvChannels?: number
+    clearRadioChannels?: number
+    unclearRadioChannels?: number
+  }
+
+  export type ChannelStatusUncheckedCreateInput = {
+    id?: string
+    date: Date | string
+    clearTvChannels?: number
+    unclearTvChannels?: number
+    clearRadioChannels?: number
+    unclearRadioChannels?: number
+  }
+
+  export type ChannelStatusUpdateInput = {
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    clearTvChannels?: IntFieldUpdateOperationsInput | number
+    unclearTvChannels?: IntFieldUpdateOperationsInput | number
+    clearRadioChannels?: IntFieldUpdateOperationsInput | number
+    unclearRadioChannels?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type ChannelStatusUncheckedUpdateInput = {
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    clearTvChannels?: IntFieldUpdateOperationsInput | number
+    unclearTvChannels?: IntFieldUpdateOperationsInput | number
+    clearRadioChannels?: IntFieldUpdateOperationsInput | number
+    unclearRadioChannels?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type ChannelStatusCreateManyInput = {
+    id?: string
+    date: Date | string
+    clearTvChannels?: number
+    unclearTvChannels?: number
+    clearRadioChannels?: number
+    unclearRadioChannels?: number
+  }
+
+  export type ChannelStatusUpdateManyMutationInput = {
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    clearTvChannels?: IntFieldUpdateOperationsInput | number
+    unclearTvChannels?: IntFieldUpdateOperationsInput | number
+    clearRadioChannels?: IntFieldUpdateOperationsInput | number
+    unclearRadioChannels?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type ChannelStatusUncheckedUpdateManyInput = {
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    clearTvChannels?: IntFieldUpdateOperationsInput | number
+    unclearTvChannels?: IntFieldUpdateOperationsInput | number
+    clearRadioChannels?: IntFieldUpdateOperationsInput | number
+    unclearRadioChannels?: IntFieldUpdateOperationsInput | number
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -7552,6 +8776,74 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type ChannelStatusCountOrderByAggregateInput = {
+    id?: SortOrder
+    date?: SortOrder
+    clearTvChannels?: SortOrder
+    unclearTvChannels?: SortOrder
+    clearRadioChannels?: SortOrder
+    unclearRadioChannels?: SortOrder
+  }
+
+  export type ChannelStatusAvgOrderByAggregateInput = {
+    clearTvChannels?: SortOrder
+    unclearTvChannels?: SortOrder
+    clearRadioChannels?: SortOrder
+    unclearRadioChannels?: SortOrder
+  }
+
+  export type ChannelStatusMaxOrderByAggregateInput = {
+    id?: SortOrder
+    date?: SortOrder
+    clearTvChannels?: SortOrder
+    unclearTvChannels?: SortOrder
+    clearRadioChannels?: SortOrder
+    unclearRadioChannels?: SortOrder
+  }
+
+  export type ChannelStatusMinOrderByAggregateInput = {
+    id?: SortOrder
+    date?: SortOrder
+    clearTvChannels?: SortOrder
+    unclearTvChannels?: SortOrder
+    clearRadioChannels?: SortOrder
+    unclearRadioChannels?: SortOrder
+  }
+
+  export type ChannelStatusSumOrderByAggregateInput = {
+    clearTvChannels?: SortOrder
+    unclearTvChannels?: SortOrder
+    clearRadioChannels?: SortOrder
+    unclearRadioChannels?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
   export type ChannelCreateNestedManyWithoutLocationInput = {
     create?: XOR<ChannelCreateWithoutLocationInput, ChannelUncheckedCreateWithoutLocationInput> | ChannelCreateWithoutLocationInput[] | ChannelUncheckedCreateWithoutLocationInput[]
     connectOrCreate?: ChannelCreateOrConnectWithoutLocationInput | ChannelCreateOrConnectWithoutLocationInput[]
@@ -7861,6 +9153,14 @@ export namespace Prisma {
     update?: XOR<XOR<LocationUpdateToOneWithWhereWithoutUserLocationsInput, LocationUpdateWithoutUserLocationsInput>, LocationUncheckedUpdateWithoutUserLocationsInput>
   }
 
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -8035,6 +9335,33 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumUserRoleFilter<$PrismaModel>
     _max?: NestedEnumUserRoleFilter<$PrismaModel>
+  }
+
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
   }
 
   export type ChannelCreateWithoutLocationInput = {

@@ -5,39 +5,13 @@ import { PieChart, Pie, Cell } from "recharts";
 
 const COLORS = ["#D3D3D3", "#808080", "#FB2C36", "#32CD32", "#4682B4"];
 
-const RADIAN = Math.PI / 180;
-const renderCustomizedLabel = ({
-  cx,
-  cy,
-  midAngle,
-  innerRadius,
-  outerRadius,
-  percent,
-}) => {
-  const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-  const x = cx + radius * Math.cos(-midAngle * RADIAN);
-  const y = cy + radius * Math.sin(-midAngle * RADIAN);
-
-  return (
-    <text
-      x={x}
-      y={y}
-      fill="white"
-      textAnchor={x > cx ? "start" : "end"}
-      dominantBaseline="central"
-    >
-      {`${(percent * 100).toFixed(0)}%`}
-    </text>
-  );
-};
-
 const RadioChart = ({count}) => {
   const data = [
-    { name: "White noise", value: count.whiteNoiseCount },
-    { name: "No modulation", value: count.noModulationCount },
-    { name: "Static", value: count.staticCount },
-    { name: "Clear/OK", value: count.okCount },
-    {name:"Clear/Low power", value:count.lowPowerCount}
+    { name: "White noise", value: count.whiteNoise },
+    { name: "No modulation", value: count.noModulation },
+    { name: "Static", value: count.static },
+    { name: "Clear/OK", value: count.clear },
+    {name:"Clear/Low power", value:count.lowPower}
   ];
   
   return (

@@ -34,10 +34,10 @@ const renderCustomizedLabel = ({
 
 const TvChart = ({count}) => {
   const data = [
-    { name: "Less glitches", value: count.lessGlitchesCount },
-    { name: "Excessive glitches", value: count.excessiveGlitchesCount},
-    { name: "No live view", value: count.noLiveViewCount },
-    { name: "Clear/OK", value: count.okCount },
+    { name: "Less glitches", value: count.lessGlitches },
+    { name: "Excessive glitches", value: count.excessiveGlitches},
+    { name: "No live view", value: count.noLiveView },
+    { name: "Clear/OK", value: count.clear },
   ];
   return (
     <div className="space-y-1">

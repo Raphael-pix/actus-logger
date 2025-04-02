@@ -89,3 +89,16 @@ enum UserRole {
   Admin
   User
 }
+
+model ChannelStatus {
+  id   String   @id @default(auto()) @map("_id") @db.ObjectId
+  date DateTime @unique
+
+  clearTvChannels   Int @default(0)
+  unclearTvChannels Int @default(0)
+
+  clearRadioChannels   Int @default(0)
+  unclearRadioChannels Int @default(0)
+
+  @@map("channelStatus")
+}

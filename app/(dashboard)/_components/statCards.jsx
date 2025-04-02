@@ -78,7 +78,7 @@ const StatCards = async () => {
             <p className={cn("text-2xl font-semibold", stat.label === "last updated" && "text-xl")}>
                 {stat.value}
               </p>
-              <h3 className="text-sm">{stat.label}</h3>
+              <h3 className="text-sm capitalize">{stat.label}</h3>
             </div>
           </div>
         </div>
