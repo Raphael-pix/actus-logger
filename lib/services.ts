@@ -1,5 +1,6 @@
 import prisma from "./prisma";
 import { jwtVerify } from "jose";
+import { redirect } from "next/navigation";
 
 const JWT_SECRET = new TextEncoder().encode(
   process.env.JWT_SECRET || "your-secret-key"
@@ -272,19 +273,18 @@ export const getUserProfile = async (token?: string) => {
   try {
     if (!token) {
       console.log("Unauthorized: No token provided");
-      return;
+      redirect("/sign-in");
     }
 
     // Verify the token
     const { payload } = await jwtVerify(token, JWT_SECRET);
 
-    const profile = await prisma.admin.findUnique({
+    const profile = await prisma.user.findUnique({
       where: { username: payload.username },
-      select: { username: true, id: true },
     });
     return profile;
   } catch (error) {
     console.error("Error in fetching user profile:", error);
-    return;
+    throw new Error("Failed to fetch Profile");
   }
 };

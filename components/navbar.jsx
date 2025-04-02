@@ -1,16 +1,18 @@
 "use client";
 
 import React, { useState } from "react";
-import { Menu, Moon, Search } from "lucide-react";
+import { Menu, Moon, Search, Sun } from "lucide-react";
 import Notifications from "./notifications";
 import { useToggleMenu } from "@/store/useToggleMenu";
 import AdminProfile from "./adminProfile";
 
 const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const [darkMode, setDarkMode] = useState(false);
   const { openMenu } = useToggleMenu();
 
   function toggleTheme() {
+    setDarkMode((prev) => !prev);
     document.documentElement.classList.toggle('dark');
   }
   
@@ -38,7 +40,7 @@ const Navbar = () => {
           onClick={toggleTheme}
           className="p-2 rounded-lg transition-colors relative cursor-pointer"
           >
-            <Moon size={20}/>
+            {!darkMode ? <Sun size={20} /> : <Moon size={20} />}
           </button>
           <div className="max-lg:hidden">
             <AdminProfile size="sm" />
