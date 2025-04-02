@@ -48,6 +48,9 @@
   --color-neutral-white: #FEFEFA;
   --color-neutral-grey: #374151;
   --color-neutral-light-grey: #d1d5db;
+  --color-primary-purple:#8F00FF;
+  --color-primary-purple-dark:#9D4EDD;
+  --color-secondary-orange:#FF4F00
 
   --font-outfit: "Outfit", sans-serif;
 }

@@ -62,7 +62,6 @@ enum ReportType {
 model User {
   id            String         @id @default(auto()) @map("_id") @db.ObjectId
   username      String         @unique
-  email         String         @unique
   password      String
   role          UserRole       @default(User)
   reports       Report[] // One user can have many reports

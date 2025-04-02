@@ -5,11 +5,14 @@ import {
   Server,
   ServerCrash,
 } from "lucide-react";
+import { cookies } from "next/headers";
 import { getLocationData } from "@/lib/services";
 import { cn } from "@/lib/utils";
 
 const StatCards = async () => {
-  const siteData = await getLocationData();
+  const cookieStore = await cookies();
+  const token = cookieStore.get("admin_token")?.value;
+  const siteData = await getLocationData(token);
 
   const quickStats = [
     {
