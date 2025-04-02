@@ -70,7 +70,7 @@ export function ChannelsDataTable<TData, TValue>({
   const toggleEditMode = () => {
     const params = new URLSearchParams(searchParams);
     if (isEditing) {
-      params.delete("editMode"); // Remove editMode param when toggling off
+      params.delete("editMode");
     } else {
       params.set("editMode", "true");
     }
