@@ -3,8 +3,8 @@ import { PrismaClient } from "@/generated/prisma";
 
 const prisma = new PrismaClient();
 
-export async function GET() {
-  const token = request.cookies.get("admin_token")?.value;
+export async function GET(request) {
+  const token = request.cookies.get("user_token")?.value;
   if (!token) {
     return NextResponse.json(
       {

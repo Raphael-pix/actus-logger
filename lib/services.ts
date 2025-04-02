@@ -248,7 +248,7 @@ export const getReports = async (token?: string) => {
   }
 };
 
-export const getChannelStatus = async (token: string) => {
+export const getChannelStatus = async (token?: string) => {
   try {
     if (!token) {
       console.log("Unauthorized: No token provided");
@@ -265,5 +265,26 @@ export const getChannelStatus = async (token: string) => {
   } catch (error) {
     console.error("Error in getChannelStatus:", error);
     return [];
+  }
+};
+
+export const getUserProfile = async (token?: string) => {
+  try {
+    if (!token) {
+      console.log("Unauthorized: No token provided");
+      return;
+    }
+
+    // Verify the token
+    const { payload } = await jwtVerify(token, JWT_SECRET);
+
+    const profile = await prisma.admin.findUnique({
+      where: { username: payload.username },
+      select: { username: true, id: true },
+    });
+    return profile;
+  } catch (error) {
+    console.error("Error in fetching user profile:", error);
+    return;
   }
 };

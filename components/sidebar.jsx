@@ -73,20 +73,18 @@ const Sidebar = ({}) => {
   };
   const handleLogout = async () => {
     try {
-      const response = await fetch("/api/admin/logout", {
+      const response = await fetch("/api/auth/logout", {
         method: "POST",
       });
       if (response.ok) {
-        router.push("/admin/login");
+        router.refresh();
+        router.push('/')
       }
     } catch (error) {
       console.error("Logout failed:", error);
     }
   };
-  // If we're on the login page, return just the children without the admin layout
-  if (pathname === "/admin/login") {
-    return children;
-  }
+
   return (
     <>
       <motion.aside

@@ -1,10 +1,38 @@
+"use client"
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { Button } from "./ui/button";
+import { useRouter } from "next/navigation";
 
-export default function AdminProfile({ size = "lg" }) {
-  // Conditional styling based on size prop
+const AdminProfile = ({ size = "lg" }) => {
+  const [profile,setProfile] = useState(null)
+  const router = useRouter();
+  useEffect(() => {
+    const fetchAdminProfile = async () => {
+      try {
+        const response = await fetch("/api/auth/profile",{
+          method: "GET"
+        });
+        const data = await response.json();
+
+        if (!response.ok) {
+          if (response.status === 401 || response.status === 404) {
+            return;
+          }
+          throw new Error(data.error || "Failed to fetch profile");
+        }
+
+       setProfile(data.profile);
+      } catch (error) {
+        console.error("Error fetching profile:", error);
+        toast.error(error.message || "Failed to load profile");
+      }
+    };
+    fetchAdminProfile();
+  }, []);
+
   const profileSizes = {
     sm: {
       imageSize: 30,
@@ -23,32 +51,40 @@ export default function AdminProfile({ size = "lg" }) {
 
   return (
     <div className="mt-auto mb-2">
-      <button
-        onClick={() => console.log("user profile")}
-        className="flex items-center gap-3 px-3 py-2 bg-transparent rounded-lg w-full"
-      >
-        <Image
-          src="/assets/images/profile.jpg"
-          alt="Admin Profile"
-          width={imageSize}
-          height={imageSize}
-          className={`${imageClass} rounded-full object-cover`}
-        />
-        <motion.div className="text-left">
-          <motion.p
-            animate={{ opacity: 1, width: "auto" }}
-            className={`font-semibold ${textSize} whitespace-nowrap`}
-          >
-            Admin
-          </motion.p>
-          <motion.p
-            animate={{ opacity: 1, width: "auto" }}
-            className="text-xs font-medium whitespace-nowrap"
-          >
-            admin
-          </motion.p>
-        </motion.div>
-      </button>
+      {profile ? (
+        <button
+          onClick={() => router.push(`/profile/${profile.username}`)}
+          className="flex items-center gap-3 px-3 py-2 bg-transparent rounded-lg w-full cursor-pointer"
+        >
+          <Image
+            src="/assets/images/profile.jpg"
+            alt="Admin Profile"
+            width={imageSize}
+            height={imageSize}
+            className={`${imageClass} rounded-full object-cover`}
+          />
+          <motion.div className="text-left">
+            <motion.p
+              animate={{ opacity: 1, width: "auto" }}
+              className={`font-semibold ${textSize} whitespace-nowrap`}
+            >
+              {profile.username}
+            </motion.p>
+            <motion.p
+              animate={{ opacity: 1, width: "auto" }}
+              className="text-xs font-medium whitespace-nowrap"
+            >
+              {profile.role}
+            </motion.p>
+          </motion.div>
+        </button>
+      ) : (
+        <Button variant="default" size="sm" onClick={()=>router.push("/sign-in")} className="cursor-pointer">
+          Login
+        </Button>
+      )}
     </div>
   );
-}
+};
+
+export default AdminProfile;

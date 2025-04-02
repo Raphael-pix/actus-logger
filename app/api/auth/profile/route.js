@@ -10,32 +10,31 @@ const JWT_SECRET = new TextEncoder().encode(
 // GET current admin profile
 export async function GET(request) {
     try {
-        const token = request.cookies.get('admin_token')?.value;
+        const token = request.cookies.get('user_token')?.value;
         if (!token) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
         const { payload } = await jwtVerify(token, JWT_SECRET);
-        const admin = await prisma.admin.findUnique({
-            where: { username: payload.username },
-            select: { username: true, id: true }
+        const user = await prisma.user.findUnique({
+            where: { username: payload.username }
         });
 
-        if (!admin) {
-            return NextResponse.json({ error: 'Admin not found' }, { status: 404 });
+        if (!user) {
+            return NextResponse.json({ error: 'User not found' }, { status: 404 });
         }
 
-        return NextResponse.json({ data: admin });
+        return NextResponse.json({ profile: user });
     } catch (error) {
-        console.error('Error fetching admin profile:', error);
-        return NextResponse.json({ error: 'Failed to fetch admin profile' }, { status: 500 });
+        console.error('Error fetching user profile:', error);
+        return NextResponse.json({ error: 'Failed to fetch user profile' }, { status: 500 });
     }
 }
 
 // PUT update admin profile
 export async function PUT(request) {
     try {
-        const token = request.cookies.get('admin_token')?.value;
+        const token = request.cookies.get('user_token')?.value;
         if (!token) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }

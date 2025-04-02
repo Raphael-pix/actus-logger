@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 
 const StatCards = async () => {
   const cookieStore = await cookies();
-  const token = cookieStore.get("admin_token")?.value;
+  const token = cookieStore.get("user_token")?.value;
   const siteData = await getLocationData(token);
 
   const quickStats = [

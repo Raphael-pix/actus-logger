@@ -5,8 +5,8 @@ import { getTVChannelData, getRadioChannelData } from "@/lib/services";
 const prisma = new PrismaClient();
 
 // GET: Retrieve all channel statuses
-export async function GET() {
-  const token = request.cookies.get("admin_token")?.value;
+export async function GET(request) {
+  const token = request.cookies.get("user_token")?.value;
   if (!token) {
     return NextResponse.json([], { status: 401 });
   }
@@ -22,8 +22,8 @@ export async function GET() {
 }
 
 // POST: Insert or update today's channel status
-export async function POST() {
-  const token = request.cookies.get("admin_token")?.value;
+export async function POST(request) {
+  const token = request.cookies.get("user_token")?.value;
   if (!token) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
@@ -34,7 +34,7 @@ export async function POST() {
   const radioData = await getRadioChannelData();
 
   const clearTvChannels = tvData.okCount;
-  const unclearTvChannels = tvData.allTvCount - tvData.okCount;
+  const unclearTvChannels = tvData.allTVCount - tvData.okCount;
   const clearRadioChannels = radioData.okCount;
   const unclearRadioChannels = radioData.allRadioCount - tvData.okCount;
 

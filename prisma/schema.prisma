@@ -48,6 +48,7 @@ model Report {
   locationId  String     @db.ObjectId
   location    Location   @relation(fields: [locationId], references: [id], onDelete: Cascade)
   type        ReportType
+  
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
 
@@ -65,10 +66,11 @@ model User {
   password      String
   role          UserRole       @default(User)
   reports       Report[] // One user can have many reports
+  
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
+  
   userLocations UserLocation[] // Relation through join model
-
   @@map("users")
 }
 
@@ -79,6 +81,7 @@ model UserLocation {
   user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   locationId String   @db.ObjectId
   location   Location @relation(fields: [locationId], references: [id], onDelete: Cascade)
+  
   createdAt  DateTime @default(now())
 
   @@unique([userId, locationId]) // Ensure unique combinations

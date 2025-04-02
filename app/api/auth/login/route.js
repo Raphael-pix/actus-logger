@@ -28,7 +28,7 @@ export async function POST(req) {
         const { username, password } = body;
 
         // Find admin user
-        const admin = await prisma.admin.findUnique({
+        const admin = await prisma.user.findUnique({
             where: { username },
         }).catch(e => {
             console.error('Database query failed:', e);
@@ -71,7 +71,7 @@ export async function POST(req) {
         );
 
         // Set cookie with less restrictive settings for development
-        response.cookies.set('admin_token', token, {
+        response.cookies.set('user_token', token, {
             httpOnly: true,
             secure: false, // Set to false for development
             sameSite: 'lax', // Changed from 'strict' to 'lax'
