@@ -10,13 +10,12 @@ import {
 import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
 
-const CommentComponent= ({ row, getValue, table,options }) => {
+const CommentComponent= ({ row, getValue,options,onUpdate }) => {
   const [comment, setComment] = useState(getValue() || '');
- 
   const handleSelectComment = async (selectedComment) => {
     try {  
       setComment(selectedComment);
-      table.options.meta?.updateData(row.index, 'comment', selectedComment);
+      onUpdate(row.original.id,selectedComment);
     } catch (error) {
       console.error('Error updating comment:', error);
     }

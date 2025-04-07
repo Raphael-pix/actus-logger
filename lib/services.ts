@@ -1,3 +1,4 @@
+import { Channel } from "@/components/ui/columns";
 import prisma from "./prisma";
 import { jwtVerify } from "jose";
 import { redirect } from "next/navigation";
@@ -286,5 +287,32 @@ export const getUserProfile = async (token?: string) => {
   } catch (error) {
     console.error("Error in fetching user profile:", error);
     throw new Error("Failed to fetch Profile");
+  }
+};
+export const updateChannels = async (data: Channel[], token?: string) => {
+  try {
+    if (!token) {
+      console.log("Unauthorized: No token provided");
+      return;
+    }
+
+    // Verify JWT
+    await jwtVerify(token, JWT_SECRET);
+
+    const results = await Promise.all(
+      data.map((channel) =>
+        prisma.channel.update({
+          where: { id: channel.id },
+          data: {
+            comment: channel.comment,
+          },
+        })
+      )
+    );
+
+    return results;
+  } catch (error) {
+    console.error("Error updating channels:", error);
+    throw new Error("Failed to update channels");
   }
 };

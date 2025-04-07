@@ -11,6 +11,7 @@ import {
   getSortedRowModel,
   getFilteredRowModel,
   useReactTable,
+  getPaginationRowModel,
 } from "@tanstack/react-table";
 import {
   Table,
@@ -27,11 +28,13 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "./button";
-import CreateReportBtn from "@/components/createReportBtn"
+import CreateReportBtn from "@/components/createReportBtn";
 import { Input } from "@/components/ui/input";
 import { useSearchParams, useRouter } from "next/navigation";
 import { locations } from "@/constant";
 import { ChevronDown, Pen } from "lucide-react";
+import clsx from "clsx";
+import { toast } from "sonner";
 
 interface ChannelsDataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -51,11 +54,16 @@ export function ChannelsDataTable<TData, TValue>({
   const [typeFilters, setTypeFilters] = React.useState<string>("all");
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
+  const [pagination, setPagination] = React.useState({
+    pageIndex: 0,
+    pageSize: 16,
+  });
+
   const [isLocationMenuOpen, setIsLocationMenuOpen] =
     React.useState<boolean>(false);
   const [rowSelection, setRowSelection] = React.useState({});
   const locationFilter = searchParams.get("location") || "all";
-  const isEditing = searchParams.get("editMode") === "true";
+  const isEditing = searchParams.get("editMode");
   // Function to update the URL with selected location
   const updateLocationFilter = (location: string) => {
     const params = new URLSearchParams(searchParams);
@@ -70,11 +78,69 @@ export function ChannelsDataTable<TData, TValue>({
   const toggleEditMode = () => {
     const params = new URLSearchParams(searchParams);
     if (isEditing) {
-      params.delete("editMode");
+      toast.custom(
+        (t) => (
+          <div className="bg-background border border-border rounded-sm  flex flex-col space-y-2 p-4">
+            <p className="text-sm font-medium text-foreground">
+              You have unsaved changes
+            </p>
+            <p className="text-xs text-accent-foreground">
+              Do you want to save your changes before exiting edit mode?
+            </p>
+            <div className="flex items-center justify-end mt-3 space-x-2">
+              <button
+                onClick={() => {
+                  toast.dismiss(t);
+                  // discard changes and exit edit mode
+                  const params = new URLSearchParams(searchParams);
+                  params.delete("editMode");
+                  router.push(`?${params.toString()}`, { scroll: false });
+                }}
+                className="px-3 py-1 text-sm bg-chart-1 rounded-md text-neutral-white"
+              >
+                Discard
+              </button>
+              <button
+                onClick={async () => {
+                  await saveChanges(data);
+                  toast.dismiss(t);
+                }}
+                className="px-3 py-1 text-sm bg-neutral-black rounded-md text-neutral-white"
+              >
+                Save & Exit
+              </button>
+            </div>
+          </div>
+        ),
+        {
+          position: "top-center",
+          duration:Infinity
+        }
+      );
     } else {
       params.set("editMode", "true");
     }
     router.push(`?${params.toString()}`, { scroll: false });
+  };
+  //Function to save comment changes
+  const saveChanges = async (data: TData[]) => {
+    try {
+      const res = await fetch("/api/update-channels", {
+        method: "PATCH",
+        body: JSON.stringify(data),
+      });
+
+      if (!res.ok) throw new Error("Failed to save changes");
+
+      toast.success("Changes saved!");
+
+      const params = new URLSearchParams(searchParams);
+      params.delete("editMode");
+      router.push(`?${params.toString()}`, { scroll: false });
+    } catch (err) {
+      toast.error("Failed to save changes");
+      console.error(err);
+    }
   };
   const table = useReactTable({
     data,
@@ -86,12 +152,15 @@ export function ChannelsDataTable<TData, TValue>({
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
-    manualPagination: true, 
+    getPaginationRowModel: getPaginationRowModel(),
+    onPaginationChange: setPagination,
+    manualPagination: locationFilter !== "all",
     state: {
       sorting,
       columnFilters,
       columnVisibility,
       rowSelection,
+      pagination,
     },
   });
 
@@ -110,7 +179,7 @@ export function ChannelsDataTable<TData, TValue>({
               />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="start" >
+          <DropdownMenuContent align="start">
             {locations.map((location) => (
               <DropdownMenuCheckboxItem
                 key={location.id}
@@ -177,7 +246,12 @@ export function ChannelsDataTable<TData, TValue>({
           <Button
             variant="outline"
             size="sm"
-            className={`${isEditing ? "bg-background text-foreground hover:bg-background hover:text-foreground" : "" } transition-colors cursor-pointer`}
+            className={clsx(
+              isEditing
+                ? "bg-neutral-black text-neutral-white hover:bg-neutral-black hover:text-neutral-white"
+                : "bg-transparent text-neutral-black",
+              "transition-colors cursor-pointer"
+            )}
             onClick={toggleEditMode}
           >
             <Pen size={16} />
@@ -234,11 +308,33 @@ export function ChannelsDataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-end space-x-2 py-4">
-        <CreateReportBtn table={table} location={locationFilter}/>
-        <Button variant="outline" size="sm">
-          Save
-        </Button>
+      <div className="w-full flex items-center justify-between">
+        {locationFilter === "all" && (
+          <div className="flex items-center  space-x-2 py-4">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => table.previousPage()}
+              disabled={!table.getCanPreviousPage()}
+            >
+              Previous
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => table.nextPage()}
+              disabled={!table.getCanNextPage()}
+            >
+              Next
+            </Button>
+          </div>
+        )}
+        <div className="ml-auto flex items-center space-x-2 py-4">
+          <CreateReportBtn table={table} location={locationFilter} />
+          <Button variant="default" size="sm" onClick={() => saveChanges(data)}>
+            Save
+          </Button>
+        </div>
       </div>
     </div>
   );

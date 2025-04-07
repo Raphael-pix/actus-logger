@@ -8,7 +8,6 @@ import {
   MoreHorizontal,
   Save,
 } from "lucide-react";
-
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -128,7 +127,7 @@ const commentOptions: {
   TV: ["less glitches", "no live view", "excessive glitches", "clear/ok"],
   Radio: ["white noise", "no modulation", "static", "clear/low power"],
 };
-export function getChannelsColumns(editMode: boolean): ColumnDef<Channel>[] {
+export function getChannelsColumns(editMode: boolean,updateComment?: (id: string, value: string) => void): ColumnDef<Channel>[] {
   return [
     {
       accessorKey: "name",
@@ -183,15 +182,15 @@ export function getChannelsColumns(editMode: boolean): ColumnDef<Channel>[] {
       accessorKey: "comment",
       header: "Comment",
       
-      cell: ({ row,getValue,table }) => {
+      cell: ({ row,getValue }) => {
         const comment: string = row.getValue("comment");
         const type: keyof typeof commentOptions = row.getValue("type");
         const options = commentOptions[type];
 
         return editMode ? (
-         <CommentComponent row={row} table={table} getValue={getValue} options={options}/> 
+         <CommentComponent row={row} getValue={getValue} options={options} onUpdate={updateComment}/> 
         ) : (
-          <p>{comment}</p>
+          <p className="capitalize">{comment}</p>
         );
       },
     },
