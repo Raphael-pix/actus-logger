@@ -22,7 +22,12 @@ export async function GET(request) {
 }
 
 // POST: Insert or update today's channel status
-export async function POST() {
+export async function POST(req) {
+  const authHeader = req.headers.get("authorization");
+
+  if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+    return new Response("Unauthorized", { status: 401 });
+  }
   const now = new Date();
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
