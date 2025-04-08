@@ -24,6 +24,7 @@ export async function GET(request) {
 // POST: Insert or update today's channel status
 export async function POST(req) {
   const authHeader = req.headers.get("authorization");
+  const token = req.cookies.get("user_token")?.value;
 
   if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
     return new Response("Unauthorized", { status: 401 });
@@ -31,8 +32,8 @@ export async function POST(req) {
   const now = new Date();
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
-  const tvData = await getTVChannelData();
-  const radioData = await getRadioChannelData();
+  const tvData = await getTVChannelData(token);
+  const radioData = await getRadioChannelData(token);
 
   const clearTvChannels = tvData.okCount;
   const unclearTvChannels = tvData.allTVCount - tvData.okCount;
