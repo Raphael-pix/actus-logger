@@ -2,6 +2,7 @@ import { Channel } from "@/components/ui/columns";
 import prisma from "./prisma";
 import { jwtVerify } from "jose";
 import { redirect } from "next/navigation";
+import { User } from "@/generated/prisma";
 
 const JWT_SECRET = new TextEncoder().encode(
   process.env.JWT_SECRET || "your-secret-key"
@@ -316,3 +317,50 @@ export const updateChannels = async (data: Channel[], token?: string) => {
     throw new Error("Failed to update channels");
   }
 };
+export const getAllUsers = async (token?:string) => {
+  try {
+    if (!token) {
+      console.log("Unauthorized: No token provided");
+      return;
+    }
+
+    // Verify JWT
+    await jwtVerify(token, JWT_SECRET);
+
+    const users = await prisma.users.findMany();
+    
+
+    // Format results
+    const result = users.map((user:User) => ({
+      id: user.id,
+      name: user.username,
+      role:user.role,
+      status:true,
+      channels:3,
+      lastActive: user.updatedAt.toISOString(),
+    }));
+
+    return result;
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    throw new Error("Failed to fecth users");
+  }
+}
+export const getAllLocations = async (token?:string) => {
+  try {
+    if (!token) {
+      console.log("Unauthorized: No token provided");
+      return;
+    }
+
+    // Verify JWT
+    await jwtVerify(token, JWT_SECRET);
+
+    const locations = await prisma.location.findMany();
+    
+    return locations;
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    throw new Error("Failed to fecth users");
+  }
+}

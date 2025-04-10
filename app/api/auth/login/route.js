@@ -27,15 +27,15 @@ export async function POST(req) {
 
         const { username, password } = body;
 
-        // Find admin user
-        const admin = await prisma.user.findUnique({
+        // Find user
+        const user = await prisma.user.findUnique({
             where: { username },
         }).catch(e => {
             console.error('Database query failed:', e);
             return null;
         });
 
-        if (!admin) {
+        if (!user) {
             return NextResponse.json(
                 { error: "Invalid credentials" },
                 { status: 401 }
@@ -43,7 +43,7 @@ export async function POST(req) {
         }
 
         // Compare passwords
-        const isValid = await bcrypt.compare(password, admin.password).catch(e => {
+        const isValid = await bcrypt.compare(password, user.password).catch(e => {
             console.error('Password comparison failed:', e);
             return false;
         });
@@ -57,12 +57,22 @@ export async function POST(req) {
 
         // Generate token using jose
         const token = await new SignJWT({
-            id: admin.id,
-            username: admin.username
+            id: user.id,
+            username: user.username
         })
             .setProtectedHeader({ alg: 'HS256' })
             .setExpirationTime('1d')
             .sign(JWT_SECRET);
+
+        //Update user time
+        await prisma.user.update({
+            where:{
+                id:user.id
+            },
+            data:{
+                updatedAt:new Date()
+            }
+        })
 
         // Create response
         const response = NextResponse.json(

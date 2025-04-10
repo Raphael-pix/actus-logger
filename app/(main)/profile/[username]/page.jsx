@@ -13,7 +13,7 @@ const ProfilePage = async () => {
         <div className="mb-8 flex items-center justify-between">
           <h1 className="text-2xl font-bold">Profile Settings</h1>
         </div>
-        <ProfileWrapper profile={profile}/>
+        <ProfileWrapper profile={profile} />
       </main>
     </div>
   );
