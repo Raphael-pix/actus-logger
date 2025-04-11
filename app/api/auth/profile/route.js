@@ -7,7 +7,7 @@ const JWT_SECRET = new TextEncoder().encode(
     process.env.JWT_SECRET || 'your-secret-key'
 );
 
-// GET current admin profile
+// GET current user profile
 export async function GET(request) {
     try {
         const token = request.cookies.get('user_token')?.value;
@@ -31,7 +31,6 @@ export async function GET(request) {
     }
 }
 
-// PUT update admin profile
 export async function PUT(request) {
     try {
         const token = request.cookies.get('user_token')?.value;
@@ -43,34 +42,34 @@ export async function PUT(request) {
         const data = await request.json();
         const { currentPassword, newPassword, newUsername } = data;
 
-        // Get current admin
-        const admin = await prisma.admin.findUnique({
+        // Get current user
+        const user = await prisma.user.findUnique({
             where: { username: payload.username }
         });
 
-        if (!admin) {
-            return NextResponse.json({ error: 'Admin not found' }, { status: 404 });
+        if (!user) {
+            return NextResponse.json({ error: 'User not found' }, { status: 404 });
         }
 
         // Verify current password
-        const isPasswordValid = await bcrypt.compare(currentPassword, admin.password);
+        const isPasswordValid = await bcrypt.compare(currentPassword,user.password);
         if (!isPasswordValid) {
             return NextResponse.json({ error: 'Current password is incorrect' }, { status: 400 });
         }
 
         // Check if new username already exists (if username is being changed)
-        if (newUsername && newUsername !== admin.username) {
-            const existingAdmin = await prisma.admin.findUnique({
+        if (newUsername && newUsername !==user.username) {
+            const existingUser = await prisma.user.findUnique({
                 where: { username: newUsername }
             });
-            if (existingAdmin) {
+            if (existingUser) {
                 return NextResponse.json({ error: 'Username already taken' }, { status: 400 });
             }
         }
 
-        // Update admin
-        const updatedAdmin = await prisma.admin.update({
-            where: { id: admin.id },
+        // Updateuser
+        const updatedUser = await prisma.user.update({
+            where: { id:user.id },
             data: {
                 ...(newUsername && { username: newUsername }),
                 ...(newPassword && { password: await bcrypt.hash(newPassword, 10) })
@@ -79,11 +78,11 @@ export async function PUT(request) {
         });
 
         return NextResponse.json({
-            data: updatedAdmin,
+            data: updatedUser,
             message: 'Profile updated successfully'
         });
     } catch (error) {
-        console.error('Error updating admin profile:', error);
+        console.error('Error updatinguser profile:', error);
         return NextResponse.json({ error: 'Failed to update profile' }, { status: 500 });
     }
 } 

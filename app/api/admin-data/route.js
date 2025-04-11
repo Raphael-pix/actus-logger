@@ -22,7 +22,7 @@ export async function GET(request) {
       role: user.role,
       status: true, // Placeholder: update with actual status logic if needed
       channels: 3, // Placeholder: dynamically calculate if needed
-      lastActive: user.updatedAt.toLocaleDateString(),
+      lastActive: user.updatedAt.toLocaleString(),
     }));
 
     return NextResponse.json({ users, locations, reports });

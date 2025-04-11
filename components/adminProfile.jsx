@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Button } from "./ui/button";
 import { useRouter } from "next/navigation";
 
+
 const AdminProfile = ({ size = "lg" }) => {
   const [profile,setProfile] = useState(null)
   const router = useRouter();
@@ -53,7 +54,7 @@ const AdminProfile = ({ size = "lg" }) => {
     <div className="mt-auto mb-2">
       {profile ? (
         <button
-          onClick={() => router.push(`/profile/${profile.username}`)}
+          onClick={() => router.push(`/profile/${profile.username}?tab=profile`)}
           className="flex items-center gap-3 px-3 py-2 bg-transparent rounded-lg w-full cursor-pointer"
         >
           <Image
@@ -72,7 +73,7 @@ const AdminProfile = ({ size = "lg" }) => {
             </motion.p>
             <motion.p
               animate={{ opacity: 1, width: "auto" }}
-              className="text-xs font-medium whitespace-nowrap"
+              className="text-xs text-muted-foreground lowercase font-light whitespace-nowrap"
             >
               {profile.role}
             </motion.p>

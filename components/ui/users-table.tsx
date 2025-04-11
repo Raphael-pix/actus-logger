@@ -22,9 +22,9 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "./button";
+import AddUserModal from "@/components/addUserModal"
 import { Input } from "@/components/ui/input";
 import { usePathname } from "next/navigation";
-import { PlusCircle } from "lucide-react";
 
 interface UsersDataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -73,10 +73,7 @@ export function UsersDataTable<TData, TValue>({
           }
           className="max-w-sm"
         />
-        <Button variant="black" size="sm" className="flex items-center gap-2">
-          <PlusCircle size={16} />
-          <span>Add user</span>
-        </Button>
+        <AddUserModal/>
       </div>
       <div className="rounded-md border">
         <Table>

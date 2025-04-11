@@ -6,8 +6,20 @@ import ChannelsTab from "./channels";
 import ReportsTab from "./reports";
 import AdminTab from "./admin";
 import clsx from "clsx";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const ProfileWrapper = ({ profile }) => {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
+  const tab = searchParams.get("tab") || "profile";
+
+  const handleTabChange = (newTab) => {
+    const current = new URLSearchParams(Array.from(searchParams.entries()));
+    current.set("tab", newTab);
+    router.replace(`?${current.toString()}`);
+  };
+
   const [activeTab, setActiveTab] = useState("profile");
 
   return (
@@ -17,13 +29,13 @@ const ProfileWrapper = ({ profile }) => {
           {["profile", "channels", "reports", "controls"].map((item) => (
             <button
               key={item}
-              onClick={() => setActiveTab(item)}
+              onClick={() => handleTabChange(item)}
               className={clsx(
                 "mr-8 py-4 px-1 font-medium text-sm capitalize cursor-pointer",
                 profile.role !== "Admin" && item === "controls"
                   ? "hidden"
                   : "block",
-                activeTab === item
+                tab === item
                   ? "border-b-2 border-primary-purple-dark text-primary-purple"
                   : "border-b-2 border-transparent text-muted-foreground hover:text-secondary-foreground hover:border-muted-foreground"
               )}
@@ -34,13 +46,13 @@ const ProfileWrapper = ({ profile }) => {
         </nav>
       </div>
 
-      {activeTab === "profile" && <ProfileTab profile={profile} />}
+      {tab === "profile" && <ProfileTab profile={profile} />}
 
-      {activeTab === "channels" && <ChannelsTab />}
+      {tab === "channels" && <ChannelsTab />}
 
-      {activeTab === "reports" && <ReportsTab />}
+      {tab === "reports" && <ReportsTab />}
 
-      {activeTab === "controls" && <AdminTab />}
+      {tab === "controls" && <AdminTab />}
     </div>
   );
 };

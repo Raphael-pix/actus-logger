@@ -8,6 +8,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
+import { useAdminStore } from "@/store/useAdminData";
 import { ChevronDown } from "lucide-react";
 import UsersTab from "./admin-tabs/users";
 import ReportsTab from "./admin-tabs/reports";
@@ -15,32 +16,16 @@ import LocationsTab from "./admin-tabs/locations";
 import clsx from "clsx";
 
 const AdminTab = () => {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const { data, loading, fetchData } = useAdminStore();
   const [activeTab, setActiveTab] = useState("users");
 
   useEffect(() => {
-    async function fetchData() {
-      setLoading(true);
-      try {
-        const res = await fetch("/api/admin-data", {
-          method: "GET",
-        });
-        const result = await res.json();
-        setData(result);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      } finally {
-        setLoading(false);
-      }
-    }
     fetchData();
   }, []);
+
   {
     if (!loading && !data) {
-      return (
-        <p className="text-sm text-muted-foreground">No data available.</p>
-      );
+      return;
     }
   }
 
@@ -77,7 +62,9 @@ const AdminTab = () => {
 
       <main className="">
         {loading ? (
-          <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin" />
+          <div className="w-full min-h-[40vh] flex items-center justify-center">
+            <div className="w-10 h-10 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+          </div>
         ) : (
           <>
             {activeTab === "users" && <UsersTab users={data.users} />}

@@ -20,6 +20,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import CommentComponent from "@/components/commentOptions";
+import DeleteUserBtn from "@/components/deleteUserBtn"
 import clsx from "clsx";
 
 export type Report = {
@@ -269,7 +270,7 @@ export const usersColumns: ColumnDef<User>[] = [
           className={clsx(
             "py-1 px-4 rounded-full text-sm text-center font-semibold w-fit",
             val
-              ? "bg-green-500 text-neutral-white"
+              ? "bg-green-100 text-green-800"
               : "bg-muted text-muted-foreground"
           )}
         >
@@ -288,7 +289,8 @@ export const usersColumns: ColumnDef<User>[] = [
   },
   {
     id: "actions",
-    cell: () => {
+    cell: (row) => {
+      const id = row.row.original.id
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -310,9 +312,8 @@ export const usersColumns: ColumnDef<User>[] = [
               <Power size={14} />
               <span className="text-sm font-medium">Deactivate</span>
             </DropdownMenuItem>
-            <DropdownMenuItem className="text-red-500 space-x-2  cursor-pointer">
-              <Delete size={14} />
-              <span className="text-sm font-medium">Delete</span>
+            <DropdownMenuItem>
+             <DeleteUserBtn userId={id}/>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
