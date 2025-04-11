@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { Eye, EyeOff, LogIn } from "lucide-react";
 import { toast } from "sonner";
+import { useUserProfile } from "@/store/useUserProfile";
 
 export default function LoginPage() {
   const [credentials, setCredentials] = useState({
@@ -12,8 +13,18 @@ export default function LoginPage() {
     password: "",
   });
   const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+
+  const showError = (message) => {
+    setError(message);
+  
+    // Clear the error after 3 seconds
+    setTimeout(() => {
+      setError(null);
+    }, 3000);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,13 +39,16 @@ export default function LoginPage() {
 
       if (response.ok) {
         toast.success("Login successful!");
+        useUserProfile.getState().fetchProfile();
         router.push("/");
       } else {
         const data = await response.json();
-        toast.error(data.message || "Login failed");
+        console.log("data: ",data);
+        showError(data.message);
       }
     } catch (error) {
-      toast.error("An error occurred. Please try again.");
+      console.log("error: ",error);
+      showError(error.message);
     } finally {
       setIsLoading(false);
     }
@@ -44,16 +58,16 @@ export default function LoginPage() {
     <div className="min-h-screen bg-gradient-to-br from-primary-purple-dark to-primary-purple flex items-center p-4">
       <div className="w-full max-w-lg mx-8 flex items-end gap-2">
         <motion.p
-          initial={{ translateX: -200, opacity:0 }}
-          animate={{ translateX: 0, opacity:1 }}
+          initial={{ translateX: -200, opacity: 0 }}
+          animate={{ translateX: 0, opacity: 1 }}
           transition={{ duration: 2 }}
           className="text-6xl font-semibold font-outfit text-[#8ee503]"
         >
           Actus
         </motion.p>
         <motion.p
-          initial={{ translateX: 200, opacity:0 }}
-          animate={{ translateX: 0, opacity:1 }}
+          initial={{ translateX: 200, opacity: 0 }}
+          animate={{ translateX: 0, opacity: 1 }}
           transition={{ duration: 2 }}
           className="text-8xl font-semibold font-outfit text-neutral-white"
         >
@@ -114,6 +128,11 @@ export default function LoginPage() {
               </div>
             </div>
 
+            {error && (
+              <p className="text-destructive text-sm font-medium mt-2">
+                {error}
+              </p>
+            )}
             <button
               type="submit"
               disabled={isLoading}

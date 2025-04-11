@@ -1421,6 +1421,7 @@ export namespace Prisma {
     id: string | null
     name: string | null
     active: boolean | null
+    url: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1429,6 +1430,7 @@ export namespace Prisma {
     id: string | null
     name: string | null
     active: boolean | null
+    url: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1437,6 +1439,7 @@ export namespace Prisma {
     id: number
     name: number
     active: number
+    url: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -1447,6 +1450,7 @@ export namespace Prisma {
     id?: true
     name?: true
     active?: true
+    url?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1455,6 +1459,7 @@ export namespace Prisma {
     id?: true
     name?: true
     active?: true
+    url?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1463,6 +1468,7 @@ export namespace Prisma {
     id?: true
     name?: true
     active?: true
+    url?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -1544,6 +1550,7 @@ export namespace Prisma {
     id: string
     name: string
     active: boolean
+    url: string | null
     createdAt: Date
     updatedAt: Date
     _count: LocationCountAggregateOutputType | null
@@ -1569,6 +1576,7 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     active?: boolean
+    url?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     channels?: boolean | Location$channelsArgs<ExtArgs>
@@ -1583,11 +1591,12 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     active?: boolean
+    url?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type LocationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "active" | "createdAt" | "updatedAt", ExtArgs["result"]["location"]>
+  export type LocationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "active" | "url" | "createdAt" | "updatedAt", ExtArgs["result"]["location"]>
   export type LocationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     channels?: boolean | Location$channelsArgs<ExtArgs>
     reports?: boolean | Location$reportsArgs<ExtArgs>
@@ -1606,6 +1615,7 @@ export namespace Prisma {
       id: string
       name: string
       active: boolean
+      url: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["location"]>
@@ -2006,6 +2016,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Location", 'String'>
     readonly name: FieldRef<"Location", 'String'>
     readonly active: FieldRef<"Location", 'Boolean'>
+    readonly url: FieldRef<"Location", 'String'>
     readonly createdAt: FieldRef<"Location", 'DateTime'>
     readonly updatedAt: FieldRef<"Location", 'DateTime'>
   }
@@ -4489,6 +4500,7 @@ export namespace Prisma {
     username: string | null
     password: string | null
     role: $Enums.UserRole | null
+    active: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -4498,6 +4510,7 @@ export namespace Prisma {
     username: string | null
     password: string | null
     role: $Enums.UserRole | null
+    active: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -4507,6 +4520,7 @@ export namespace Prisma {
     username: number
     password: number
     role: number
+    active: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -4518,6 +4532,7 @@ export namespace Prisma {
     username?: true
     password?: true
     role?: true
+    active?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -4527,6 +4542,7 @@ export namespace Prisma {
     username?: true
     password?: true
     role?: true
+    active?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -4536,6 +4552,7 @@ export namespace Prisma {
     username?: true
     password?: true
     role?: true
+    active?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -4618,6 +4635,7 @@ export namespace Prisma {
     username: string
     password: string
     role: $Enums.UserRole
+    active: boolean
     createdAt: Date
     updatedAt: Date
     _count: UserCountAggregateOutputType | null
@@ -4644,6 +4662,7 @@ export namespace Prisma {
     username?: boolean
     password?: boolean
     role?: boolean
+    active?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     reports?: boolean | User$reportsArgs<ExtArgs>
@@ -4658,11 +4677,12 @@ export namespace Prisma {
     username?: boolean
     password?: boolean
     role?: boolean
+    active?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "username" | "password" | "role" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "username" | "password" | "role" | "active" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     reports?: boolean | User$reportsArgs<ExtArgs>
     userLocations?: boolean | User$userLocationsArgs<ExtArgs>
@@ -4680,6 +4700,7 @@ export namespace Prisma {
       username: string
       password: string
       role: $Enums.UserRole
+      active: boolean
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["user"]>
@@ -5080,6 +5101,7 @@ export namespace Prisma {
     readonly username: FieldRef<"User", 'String'>
     readonly password: FieldRef<"User", 'String'>
     readonly role: FieldRef<"User", 'UserRole'>
+    readonly active: FieldRef<"User", 'Boolean'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
   }
@@ -7487,6 +7509,7 @@ export namespace Prisma {
     id: 'id',
     name: 'name',
     active: 'active',
+    url: 'url',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -7525,6 +7548,7 @@ export namespace Prisma {
     username: 'username',
     password: 'password',
     role: 'role',
+    active: 'active',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -7690,6 +7714,7 @@ export namespace Prisma {
     id?: StringFilter<"Location"> | string
     name?: StringFilter<"Location"> | string
     active?: BoolFilter<"Location"> | boolean
+    url?: StringNullableFilter<"Location"> | string | null
     createdAt?: DateTimeFilter<"Location"> | Date | string
     updatedAt?: DateTimeFilter<"Location"> | Date | string
     channels?: ChannelListRelationFilter
@@ -7701,6 +7726,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     active?: SortOrder
+    url?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     channels?: ChannelOrderByRelationAggregateInput
@@ -7715,6 +7741,7 @@ export namespace Prisma {
     OR?: LocationWhereInput[]
     NOT?: LocationWhereInput | LocationWhereInput[]
     active?: BoolFilter<"Location"> | boolean
+    url?: StringNullableFilter<"Location"> | string | null
     createdAt?: DateTimeFilter<"Location"> | Date | string
     updatedAt?: DateTimeFilter<"Location"> | Date | string
     channels?: ChannelListRelationFilter
@@ -7726,6 +7753,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     active?: SortOrder
+    url?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: LocationCountOrderByAggregateInput
@@ -7740,6 +7768,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Location"> | string
     name?: StringWithAggregatesFilter<"Location"> | string
     active?: BoolWithAggregatesFilter<"Location"> | boolean
+    url?: StringNullableWithAggregatesFilter<"Location"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Location"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Location"> | Date | string
   }
@@ -7885,6 +7914,7 @@ export namespace Prisma {
     username?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
     role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
+    active?: BoolFilter<"User"> | boolean
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     reports?: ReportListRelationFilter
@@ -7896,6 +7926,7 @@ export namespace Prisma {
     username?: SortOrder
     password?: SortOrder
     role?: SortOrder
+    active?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     reports?: ReportOrderByRelationAggregateInput
@@ -7910,6 +7941,7 @@ export namespace Prisma {
     NOT?: UserWhereInput | UserWhereInput[]
     password?: StringFilter<"User"> | string
     role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
+    active?: BoolFilter<"User"> | boolean
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     reports?: ReportListRelationFilter
@@ -7921,6 +7953,7 @@ export namespace Prisma {
     username?: SortOrder
     password?: SortOrder
     role?: SortOrder
+    active?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
@@ -7936,6 +7969,7 @@ export namespace Prisma {
     username?: StringWithAggregatesFilter<"User"> | string
     password?: StringWithAggregatesFilter<"User"> | string
     role?: EnumUserRoleWithAggregatesFilter<"User"> | $Enums.UserRole
+    active?: BoolWithAggregatesFilter<"User"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
@@ -8057,6 +8091,7 @@ export namespace Prisma {
     id?: string
     name: string
     active?: boolean
+    url?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     channels?: ChannelCreateNestedManyWithoutLocationInput
@@ -8068,6 +8103,7 @@ export namespace Prisma {
     id?: string
     name: string
     active?: boolean
+    url?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     channels?: ChannelUncheckedCreateNestedManyWithoutLocationInput
@@ -8078,6 +8114,7 @@ export namespace Prisma {
   export type LocationUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
+    url?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     channels?: ChannelUpdateManyWithoutLocationNestedInput
@@ -8088,6 +8125,7 @@ export namespace Prisma {
   export type LocationUncheckedUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
+    url?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     channels?: ChannelUncheckedUpdateManyWithoutLocationNestedInput
@@ -8099,6 +8137,7 @@ export namespace Prisma {
     id?: string
     name: string
     active?: boolean
+    url?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -8106,6 +8145,7 @@ export namespace Prisma {
   export type LocationUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
+    url?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -8113,6 +8153,7 @@ export namespace Prisma {
   export type LocationUncheckedUpdateManyInput = {
     name?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
+    url?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -8251,6 +8292,7 @@ export namespace Prisma {
     username: string
     password: string
     role?: $Enums.UserRole
+    active?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     reports?: ReportCreateNestedManyWithoutCreatedByInput
@@ -8262,6 +8304,7 @@ export namespace Prisma {
     username: string
     password: string
     role?: $Enums.UserRole
+    active?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     reports?: ReportUncheckedCreateNestedManyWithoutCreatedByInput
@@ -8272,6 +8315,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    active?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reports?: ReportUpdateManyWithoutCreatedByNestedInput
@@ -8282,6 +8326,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    active?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reports?: ReportUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -8293,6 +8338,7 @@ export namespace Prisma {
     username: string
     password: string
     role?: $Enums.UserRole
+    active?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -8301,6 +8347,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    active?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -8309,6 +8356,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    active?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -8435,6 +8483,22 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+    isSet?: boolean
+  }
+
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -8480,6 +8544,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     active?: SortOrder
+    url?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -8488,6 +8553,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     active?: SortOrder
+    url?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -8496,6 +8562,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     active?: SortOrder
+    url?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -8526,6 +8593,25 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+    isSet?: boolean
+  }
+
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -8545,22 +8631,6 @@ export namespace Prisma {
     in?: $Enums.ChannelType[] | ListEnumChannelTypeFieldRefInput<$PrismaModel>
     notIn?: $Enums.ChannelType[] | ListEnumChannelTypeFieldRefInput<$PrismaModel>
     not?: NestedEnumChannelTypeFilter<$PrismaModel> | $Enums.ChannelType
-  }
-
-  export type StringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-    isSet?: boolean
   }
 
   export type LocationScalarRelationFilter = {
@@ -8606,25 +8676,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumChannelTypeFilter<$PrismaModel>
     _max?: NestedEnumChannelTypeFilter<$PrismaModel>
-  }
-
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
-    isSet?: boolean
   }
 
   export type EnumReportTypeFilter<$PrismaModel = never> = {
@@ -8691,6 +8742,7 @@ export namespace Prisma {
     username?: SortOrder
     password?: SortOrder
     role?: SortOrder
+    active?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -8700,6 +8752,7 @@ export namespace Prisma {
     username?: SortOrder
     password?: SortOrder
     role?: SortOrder
+    active?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -8709,6 +8762,7 @@ export namespace Prisma {
     username?: SortOrder
     password?: SortOrder
     role?: SortOrder
+    active?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -8867,6 +8921,11 @@ export namespace Prisma {
     set?: boolean
   }
 
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+    unset?: boolean
+  }
+
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
   }
@@ -8963,11 +9022,6 @@ export namespace Prisma {
 
   export type EnumChannelTypeFieldUpdateOperationsInput = {
     set?: $Enums.ChannelType
-  }
-
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
-    unset?: boolean
   }
 
   export type LocationUpdateOneRequiredWithoutChannelsNestedInput = {
@@ -9153,6 +9207,21 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+    isSet?: boolean
+  }
+
   export type NestedDateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -9200,52 +9269,6 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
-  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
-  }
-
-  export type NestedEnumChannelTypeFilter<$PrismaModel = never> = {
-    equals?: $Enums.ChannelType | EnumChannelTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.ChannelType[] | ListEnumChannelTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.ChannelType[] | ListEnumChannelTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumChannelTypeFilter<$PrismaModel> | $Enums.ChannelType
-  }
-
-  export type NestedStringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-    isSet?: boolean
-  }
-
-  export type NestedEnumChannelTypeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.ChannelType | EnumChannelTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.ChannelType[] | ListEnumChannelTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.ChannelType[] | ListEnumChannelTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumChannelTypeWithAggregatesFilter<$PrismaModel> | $Enums.ChannelType
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumChannelTypeFilter<$PrismaModel>
-    _max?: NestedEnumChannelTypeFilter<$PrismaModel>
-  }
-
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -9274,6 +9297,37 @@ export namespace Prisma {
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
     isSet?: boolean
+  }
+
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumChannelTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.ChannelType | EnumChannelTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ChannelType[] | ListEnumChannelTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ChannelType[] | ListEnumChannelTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumChannelTypeFilter<$PrismaModel> | $Enums.ChannelType
+  }
+
+  export type NestedEnumChannelTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ChannelType | EnumChannelTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.ChannelType[] | ListEnumChannelTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ChannelType[] | ListEnumChannelTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumChannelTypeWithAggregatesFilter<$PrismaModel> | $Enums.ChannelType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumChannelTypeFilter<$PrismaModel>
+    _max?: NestedEnumChannelTypeFilter<$PrismaModel>
   }
 
   export type NestedEnumReportTypeFilter<$PrismaModel = never> = {
@@ -9500,6 +9554,7 @@ export namespace Prisma {
     id?: string
     name: string
     active?: boolean
+    url?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     reports?: ReportCreateNestedManyWithoutLocationInput
@@ -9510,6 +9565,7 @@ export namespace Prisma {
     id?: string
     name: string
     active?: boolean
+    url?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     reports?: ReportUncheckedCreateNestedManyWithoutLocationInput
@@ -9535,6 +9591,7 @@ export namespace Prisma {
   export type LocationUpdateWithoutChannelsInput = {
     name?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
+    url?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reports?: ReportUpdateManyWithoutLocationNestedInput
@@ -9544,6 +9601,7 @@ export namespace Prisma {
   export type LocationUncheckedUpdateWithoutChannelsInput = {
     name?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
+    url?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reports?: ReportUncheckedUpdateManyWithoutLocationNestedInput
@@ -9555,6 +9613,7 @@ export namespace Prisma {
     username: string
     password: string
     role?: $Enums.UserRole
+    active?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     userLocations?: UserLocationCreateNestedManyWithoutUserInput
@@ -9565,6 +9624,7 @@ export namespace Prisma {
     username: string
     password: string
     role?: $Enums.UserRole
+    active?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     userLocations?: UserLocationUncheckedCreateNestedManyWithoutUserInput
@@ -9579,6 +9639,7 @@ export namespace Prisma {
     id?: string
     name: string
     active?: boolean
+    url?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     channels?: ChannelCreateNestedManyWithoutLocationInput
@@ -9589,6 +9650,7 @@ export namespace Prisma {
     id?: string
     name: string
     active?: boolean
+    url?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     channels?: ChannelUncheckedCreateNestedManyWithoutLocationInput
@@ -9615,6 +9677,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    active?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userLocations?: UserLocationUpdateManyWithoutUserNestedInput
@@ -9624,6 +9687,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    active?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userLocations?: UserLocationUncheckedUpdateManyWithoutUserNestedInput
@@ -9643,6 +9707,7 @@ export namespace Prisma {
   export type LocationUpdateWithoutReportsInput = {
     name?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
+    url?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     channels?: ChannelUpdateManyWithoutLocationNestedInput
@@ -9652,6 +9717,7 @@ export namespace Prisma {
   export type LocationUncheckedUpdateWithoutReportsInput = {
     name?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
+    url?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     channels?: ChannelUncheckedUpdateManyWithoutLocationNestedInput
@@ -9743,6 +9809,7 @@ export namespace Prisma {
     username: string
     password: string
     role?: $Enums.UserRole
+    active?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     reports?: ReportCreateNestedManyWithoutCreatedByInput
@@ -9753,6 +9820,7 @@ export namespace Prisma {
     username: string
     password: string
     role?: $Enums.UserRole
+    active?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     reports?: ReportUncheckedCreateNestedManyWithoutCreatedByInput
@@ -9767,6 +9835,7 @@ export namespace Prisma {
     id?: string
     name: string
     active?: boolean
+    url?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     channels?: ChannelCreateNestedManyWithoutLocationInput
@@ -9777,6 +9846,7 @@ export namespace Prisma {
     id?: string
     name: string
     active?: boolean
+    url?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     channels?: ChannelUncheckedCreateNestedManyWithoutLocationInput
@@ -9803,6 +9873,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    active?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reports?: ReportUpdateManyWithoutCreatedByNestedInput
@@ -9812,6 +9883,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    active?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reports?: ReportUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -9831,6 +9903,7 @@ export namespace Prisma {
   export type LocationUpdateWithoutUserLocationsInput = {
     name?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
+    url?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     channels?: ChannelUpdateManyWithoutLocationNestedInput
@@ -9840,6 +9913,7 @@ export namespace Prisma {
   export type LocationUncheckedUpdateWithoutUserLocationsInput = {
     name?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
+    url?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     channels?: ChannelUncheckedUpdateManyWithoutLocationNestedInput

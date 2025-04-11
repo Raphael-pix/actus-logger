@@ -15,6 +15,7 @@ model Location {
   reports       Report[] // One location can have many reports
   userLocations UserLocation[]
   active        Boolean        @default(true)
+  url           String?        
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -48,9 +49,9 @@ model Report {
   locationId  String     @db.ObjectId
   location    Location   @relation(fields: [locationId], references: [id], onDelete: Cascade)
   type        ReportType
-  
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("reports")
 }
@@ -61,16 +62,18 @@ enum ReportType {
 }
 
 model User {
-  id            String         @id @default(auto()) @map("_id") @db.ObjectId
-  username      String         @unique
-  password      String
-  role          UserRole       @default(User)
-  reports       Report[] // One user can have many reports
-  
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
-  
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  username String   @unique
+  password String
+  role     UserRole @default(User)
+  active   Boolean  @default(false)
+  reports  Report[] // One user can have many reports
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   userLocations UserLocation[] // Relation through join model
+
   @@map("users")
 }
 
@@ -81,8 +84,8 @@ model UserLocation {
   user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   locationId String   @db.ObjectId
   location   Location @relation(fields: [locationId], references: [id], onDelete: Cascade)
-  
-  createdAt  DateTime @default(now())
+
+  createdAt DateTime @default(now())
 
   @@unique([userId, locationId]) // Ensure unique combinations
 }

@@ -1,12 +1,14 @@
 import Image from "next/image";
 import React, { useState } from "react";
+import { formatDistanceToNow } from "date-fns";
 
 const ProfileTab = ({profile}) => {
+  const lastActive = formatDistanceToNow(new Date(profile.updatedAt), { addSuffix: true });
   const [userData, setUserData] = useState({
     username: profile.username,
     password: profile.password,
     avatar: "/assets/images/profile.jpg",
-    lastActive: "Today",
+    lastActive: lastActive,
   });
   // Form state
   const [username, setUsername] = useState(userData.username);
@@ -34,8 +36,10 @@ const ProfileTab = ({profile}) => {
               <Image
                 src={userData.avatar}
                 alt="User avatar"
-                fill
-                className="rounded-full object-cover border-4 shadow"
+                width={128}
+                height={128}
+                priority
+                className="w-full h-full rounded-full object-cover border-4 shadow"
               />
             </div>
             <h3 className="text-lg font-medium text-neutral-white mb-2">
@@ -72,8 +76,8 @@ const ProfileTab = ({profile}) => {
                     type="text"
                     id="username"
                     className="mt-1 block w-full rounded-md border border-input shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
+                    value={profile.username}
+                    disabled
                   />
                 </div>
 
@@ -103,16 +107,18 @@ const ProfileTab = ({profile}) => {
             <form className="space-y-6">
               <div>
                 <label
-                  htmlFor="current-password"
+                  htmlFor="new-username"
                   className="block text-sm font-medium text-foreground"
                 >
                   New Username
                 </label>
                 <input
-                  type="text"
-                  id="current-username"
-                  className="mt-1 block w-full rounded-md border border-input shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary"
-                />
+                    type="text"
+                    id="new-username"
+                    className="mt-1 block w-full rounded-md border border-input shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                  />
               </div>
 
               <div>
@@ -152,7 +158,7 @@ const ProfileTab = ({profile}) => {
                   type="submit"
                   className="w-full bg-primary-purple-dark hover:bg-primary text-white px-4 py-2 rounded-md transition-colors"
                 >
-                  Update Password
+                  Update
                 </button>
               </div>
             </form>

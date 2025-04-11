@@ -16,6 +16,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { useSidebar } from "@/store/useSidebar";
 import { useToggleMenu } from "@/store/useToggleMenu";
+import { useUserProfile } from "@/store/useUserProfile";
 
 const menuItems = [
   { name: "Dashboard", icon: LayoutDashboard, path: "/" },
@@ -62,6 +63,7 @@ const Sidebar = ({}) => {
   const pathname = usePathname();
   const { isSidebarOpen, openSidebar, closeSidebar } = useSidebar();
   const { isMenuOpen, closeMenu } = useToggleMenu();
+  const { deleteProfile } = useUserProfile();
   const router = useRouter();
 
   const handleToggleSidebar = () => {
@@ -77,8 +79,10 @@ const Sidebar = ({}) => {
         method: "POST",
       });
       if (response.ok) {
+        deleteProfile();
+        localStorage.removeItem("user-profile-storage");
+        router.push('/');
         router.refresh();
-        router.push('/')
       }
     } catch (error) {
       console.error("Logout failed:", error);

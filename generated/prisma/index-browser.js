@@ -114,6 +114,7 @@ exports.Prisma.LocationScalarFieldEnum = {
   id: 'id',
   name: 'name',
   active: 'active',
+  url: 'url',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -143,6 +144,7 @@ exports.Prisma.UserScalarFieldEnum = {
   username: 'username',
   password: 'password',
   role: 'role',
+  active: 'active',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };

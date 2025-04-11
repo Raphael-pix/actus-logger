@@ -20,7 +20,7 @@ export async function GET(request) {
       id: user.id,
       name: user.username,
       role: user.role,
-      status: true, // Placeholder: update with actual status logic if needed
+      status: user.active, 
       channels: 3, // Placeholder: dynamically calculate if needed
       lastActive: user.updatedAt.toLocaleString(),
     }));

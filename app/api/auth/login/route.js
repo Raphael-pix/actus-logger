@@ -20,7 +20,7 @@ export async function POST(req) {
 
         if (!body || !body.username || !body.password) {
             return NextResponse.json(
-                { error: "Username and password are required" },
+                { message: "Username and password are required" },
                 { status: 400 }
             );
         }
@@ -37,20 +37,22 @@ export async function POST(req) {
 
         if (!user) {
             return NextResponse.json(
-                { error: "Invalid credentials" },
+                { message: "Invalid credentials. Check whether username or password is correct." },
                 { status: 401 }
             );
         }
 
         // Compare passwords
-        const isValid = await bcrypt.compare(password, user.password).catch(e => {
-            console.error('Password comparison failed:', e);
-            return false;
+        const isValid = await bcrypt.compare(password, user.password).catch(() => {
+            return NextResponse.json(
+                { message: "Invalid credentials. Check whether username or password is correct." },
+                { status: 401 }
+            );
         });
 
         if (!isValid) {
             return NextResponse.json(
-                { error: "Invalid credentials" },
+                { message: "Invalid credentials. Check whether username or password is correct." },
                 { status: 401 }
             );
         }
@@ -95,7 +97,7 @@ export async function POST(req) {
     } catch (error) {
         console.error('Login error:', error);
         return NextResponse.json(
-            { error: "Internal server error", details: error.message },
+            { message: "Internal server error"},
             { status: 500 }
         );
     } finally {

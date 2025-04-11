@@ -5,35 +5,13 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { Button } from "./ui/button";
 import { useRouter } from "next/navigation";
+import {useUserProfile} from "@/store/useUserProfile"
 
 
 const AdminProfile = ({ size = "lg" }) => {
-  const [profile,setProfile] = useState(null)
+  const {profile} = useUserProfile();
   const router = useRouter();
-  useEffect(() => {
-    const fetchAdminProfile = async () => {
-      try {
-        const response = await fetch("/api/auth/profile",{
-          method: "GET"
-        });
-        const data = await response.json();
-
-        if (!response.ok) {
-          if (response.status === 401 || response.status === 404) {
-            return;
-          }
-          throw new Error(data.error || "Failed to fetch profile");
-        }
-
-       setProfile(data.profile);
-      } catch (error) {
-        console.error("Error fetching profile:", error);
-        toast.error(error.message || "Failed to load profile");
-      }
-    };
-    fetchAdminProfile();
-  }, []);
-
+ 
   const profileSizes = {
     sm: {
       imageSize: 30,
@@ -75,7 +53,7 @@ const AdminProfile = ({ size = "lg" }) => {
               animate={{ opacity: 1, width: "auto" }}
               className="text-xs text-muted-foreground lowercase font-light whitespace-nowrap"
             >
-              {profile.role}
+              {profile.role === "Admin" ? "admin" : "" }
             </motion.p>
           </motion.div>
         </button>

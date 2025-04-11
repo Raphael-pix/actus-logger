@@ -7,7 +7,6 @@ import {
   Delete,
   Edit,
   MoreHorizontal,
-  Power,
   Save,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -21,6 +20,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import CommentComponent from "@/components/commentOptions";
 import DeleteUserBtn from "@/components/deleteUserBtn"
+import ToggleActiveBtn from "@/components/toggleActiveBtn"
 import clsx from "clsx";
 
 export type Report = {
@@ -290,7 +290,8 @@ export const usersColumns: ColumnDef<User>[] = [
   {
     id: "actions",
     cell: (row) => {
-      const id = row.row.original.id
+      const id = row.row.original.id;
+      const status = row.row.original.status;
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -305,12 +306,8 @@ export const usersColumns: ColumnDef<User>[] = [
               <Edit size={14} />
               <span className="text-sm font-medium">Edit</span>
             </DropdownMenuItem>
-            <DropdownMenuItem
-              className="space-x-2  cursor-pointer"
-              onClick={() => console.log("name")}
-            >
-              <Power size={14} />
-              <span className="text-sm font-medium">Deactivate</span>
+            <DropdownMenuItem>
+              <ToggleActiveBtn userId={id} isActive={status} />
             </DropdownMenuItem>
             <DropdownMenuItem>
              <DeleteUserBtn userId={id}/>

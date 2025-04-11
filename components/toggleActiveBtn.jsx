@@ -1,22 +1,21 @@
 "use client";
 
 import clsx from "clsx";
-import { Delete } from "lucide-react";
-import { usePathname, useRouter } from "next/navigation";
+import { Power, PowerOff } from "lucide-react";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { toast } from "sonner";
 import { useAdminStore } from "@/store/useAdminData";
 
-const DeleteUserBtn = ({ userId }) => {
+const ToggleActiveBtn = ({ userId,isActive }) => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const pathname = usePathname();
 
-  const handleDelete = async () => {
+  const handleToggle = async () => {
     setLoading(true);
     try {
-      const res = await fetch("/api/users/delete-user", {
-        method: "DELETE",
+      const res = await fetch("/api/users/toggle-active", {
+        method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
@@ -26,25 +25,25 @@ const DeleteUserBtn = ({ userId }) => {
       const result = await res.json();
 
       if (!res.ok) {
-        toast.error(result.error || "Failed to delete user");
+        toast.error(result.error || `Failed to ${isActive ? "deactivate" : "activate"} account, please try again`);
         return;
       }
 
-      toast.success("User deleted successfully");
+      toast.success(`User account ${isActive ? "deactivated" : "activated"} successfully`);
       router.refresh();
       useAdminStore.getState().fetchData();
     } catch (error) {
-      toast.error("Failed to delete user, please try again");
+      toast.error(`Failed to ${isActive ? "deactivate" : "activate"} account, please try again`);
     } finally {
       setLoading(false);
     }
   };
 
-  const confirmDelete = () => {
+  const confirmToggle = () => {
     toast(
       (t) => (
         <div className="flex flex-col gap-2">
-          <p>Are you sure you want to delete this user?</p>
+          <p>Are you sure you want to {isActive ? "deactivate" : "activate"} this user?</p>
           <div className="flex gap-2 justify-end">
             <button
               onClick={() => toast.dismiss(t)}
@@ -55,7 +54,7 @@ const DeleteUserBtn = ({ userId }) => {
             <button
               onClick={() => {
                 toast.dismiss(t);
-                handleDelete();
+                handleToggle();
               }}
               className="text-xs px-2 py-1 rounded bg-foreground text-background cursor-pointer"
             >
@@ -72,17 +71,17 @@ const DeleteUserBtn = ({ userId }) => {
 
   return (
     <button
-      onClick={confirmDelete}
+      onClick={confirmToggle}
       className={clsx(
-        "text-destructive flex items-center gap-1 rounded-sm p-2 space-x-2 cursor-pointer",
+        "text-foreground flex items-center gap-1 rounded-sm p-2 space-x-2 cursor-pointer",
         loading ? "bg-muted opacity-50" : ""
       )}
       disabled={loading}
     >
-      <Delete size={14} />
-      <span className="text-sm font-medium">Delete</span>
+      {isActive ? <PowerOff size={14} /> :  <Power size={14} />}
+      <span className="text-sm font-medium">{isActive ? "Deactivate" : "Activate"}</span>
     </button>
   );
 };
 
-export default DeleteUserBtn;
+export default ToggleActiveBtn;
