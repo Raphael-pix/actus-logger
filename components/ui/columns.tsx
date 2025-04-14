@@ -5,8 +5,9 @@ import { Checkbox } from "@/components/ui/checkbox";
 import {
   ArrowUpDown,
   Delete,
-  Edit,
   MoreHorizontal,
+  MoreVertical,
+  Pencil,
   Save,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -18,10 +19,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import CommentComponent from "@/components/commentOptions";
-import DeleteUserBtn from "@/components/deleteUserBtn"
-import ToggleActiveBtn from "@/components/toggleActiveBtn"
 import clsx from "clsx";
+import { Location } from "@/generated/prisma";
+import CommentComponent from "@/components/commentOptions";
+import DeleteUserBtn from "@/components/deleteUserBtn";
+import ToggleActiveBtn from "@/components/toggleActiveBtn";
+import EditUserModal from "@/components/editUserModal";
+import React from "react";
 
 export type Report = {
   id: string;
@@ -43,7 +47,7 @@ export type User = {
   role: "Admin" | "User";
   status?: boolean | true;
   lastActive: string;
-  channels: number;
+  channels: Location[];
 };
 
 export const reportColumns: ColumnDef<Report>[] = [
@@ -216,105 +220,125 @@ export function getChannelsColumns(
     },
   ];
 }
-export const usersColumns: ColumnDef<User>[] = [
-  {
-    id: "select",
-    header: ({ table }) => (
-      <Checkbox
-        checked={
-          table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
-        }
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-      />
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
-  {
-    accessorKey: "name",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Name
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
+export function getUsersColumns(
+  editOpen: boolean,
+  setEditOpen: React.Dispatch<React.SetStateAction<boolean>>
+): ColumnDef<User>[] {
+  return [
+    {
+      id: "select",
+      header: ({ table }) => (
+        <Checkbox
+          checked={
+            table.getIsAllPageRowsSelected() ||
+            (table.getIsSomePageRowsSelected() && "indeterminate")
+          }
+          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+          aria-label="Select all"
+        />
+      ),
+      cell: ({ row }) => (
+        <Checkbox
+          checked={row.getIsSelected()}
+          onCheckedChange={(value) => row.toggleSelected(!!value)}
+          aria-label="Select row"
+        />
+      ),
+      enableSorting: false,
+      enableHiding: false,
     },
-    cell: ({ row }) => (
-      <p className="px-4">{row.getValue("name")}</p>
-    ),
-  },
-  {
-    accessorKey: "role",
-    header: "Role",
-  },
-  {
-    accessorKey: "status",
-    header: "Status",
-    cell: ({ row }) => {
-      const val = row.getValue("status");
-      return (
-        <p
-          className={clsx(
-            "py-1 px-4 rounded-full text-sm text-center font-semibold w-fit",
-            val
-              ? "bg-green-100 text-green-800"
-              : "bg-muted text-muted-foreground"
-          )}
-        >
-          {val ? "Active" : "Inactive"}
-        </p>
-      );
+    {
+      accessorKey: "name",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Name
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+          </Button>
+        );
+      },
+      cell: ({ row }) => <p className="px-4">{row.getValue("name")}</p>,
     },
-  },
-  {
-    accessorKey: "lastActive",
-    header: "Last Active",
-  },
-  {
-    accessorKey: "channels",
-    header: "Channels",
-  },
-  {
-    id: "actions",
-    cell: (row) => {
-      const id = row.row.original.id;
-      const status = row.row.original.status;
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="center">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem className="space-x-2 cursor-pointer">
-              <Edit size={14} />
-              <span className="text-sm font-medium">Edit</span>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <ToggleActiveBtn userId={id} isActive={status} />
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-             <DeleteUserBtn userId={id}/>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
+    {
+      accessorKey: "role",
+      header: "Role",
     },
-  },
-];
+    {
+      accessorKey: "status",
+      header: "Status",
+      cell: ({ row }) => {
+        const val = row.getValue("status");
+        return (
+          <p
+            className={clsx(
+              "py-1 px-4 rounded-full text-sm text-center font-semibold w-fit",
+              val
+                ? "bg-green-100 text-green-800"
+                : "bg-muted text-muted-foreground"
+            )}
+          >
+            {val ? "Active" : "Inactive"}
+          </p>
+        );
+      },
+    },
+    {
+      accessorKey: "lastActive",
+      header: "Last Active",
+    },
+    {
+      accessorKey: "channels",
+      header: "Channels",
+      cell: ({ row }) => {
+        const channels: Location[] = row.getValue("channels");
+        return <p className="capitalize">{channels.length}</p>;
+      },
+    },
+    {
+      id: "actions",
+      cell: (row) => {
+        const user = row.row.original;
+        return (
+          <>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="h-8 w-8 p-0">
+                  <span className="sr-only">Open menu</span>
+                  <MoreVertical className="h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="center">
+                <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                <DropdownMenuItem onSelect={() => setEditOpen(true)}>
+                  <div
+                    className={clsx(
+                      "text-foreground flex items-center gap-1 rounded-sm p-2 space-x-2 cursor-pointer"
+                    )}
+                  >
+                    <Pencil size={16} />
+                    <span>Edit</span>
+                  </div>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <ToggleActiveBtn userId={user.id} isActive={user.status} />
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <DeleteUserBtn userId={user.id} />
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+            
+            <EditUserModal
+              user={user}
+              open={editOpen}
+              onOpenChange={setEditOpen}
+            />
+          </>
+        );
+      },
+    },
+  ];
+}

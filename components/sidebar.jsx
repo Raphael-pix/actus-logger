@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
 import {
   LayoutDashboard,
@@ -17,6 +17,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useSidebar } from "@/store/useSidebar";
 import { useToggleMenu } from "@/store/useToggleMenu";
 import { useUserProfile } from "@/store/useUserProfile";
+import { useLocationsStore } from "@/store/useLocationsStore";
 
 const menuItems = [
   { name: "Dashboard", icon: LayoutDashboard, path: "/" },
@@ -61,11 +62,11 @@ const MenuLink = ({ item, isActive, isSidebarOpen }) => {
 
 const Sidebar = ({}) => {
   const pathname = usePathname();
+  const router = useRouter();
   const { isSidebarOpen, openSidebar, closeSidebar } = useSidebar();
   const { isMenuOpen, closeMenu } = useToggleMenu();
   const { deleteProfile } = useUserProfile();
-  const router = useRouter();
-
+  
   const handleToggleSidebar = () => {
     if (isSidebarOpen) {
       closeSidebar();

@@ -56,6 +56,12 @@ export async function POST(req) {
                 { status: 401 }
             );
         }
+        if (!user.active) {
+            return NextResponse.json(
+                { message: "The account is not activated. Please check in with your adminsitrator" },
+                { status: 401 }
+            );
+        }
 
         // Generate token using jose
         const token = await new SignJWT({

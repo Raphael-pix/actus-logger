@@ -10,7 +10,7 @@ export default async function ChannelsTable({location}:{location:string}) {
 
   return (
     <div className="container mx-auto">
-      <ChannelsTableWrapper channels={channels} />
+      <ChannelsTableWrapper channels={channels} token={token} />
     </div>
   );
 }

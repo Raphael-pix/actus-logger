@@ -52,6 +52,21 @@ export async function POST(req) {
       },
     });
 
+     // Fetch all existing locations
+     const allLocations = await prisma.location.findMany();
+
+     // Assign all locations to the new user
+     const userLocationRelations = allLocations.map((location) => ({
+       userId: newUser.id,
+       locationId: location.id,
+     }));
+ 
+     if (userLocationRelations.length > 0) {
+       await prisma.userLocation.createMany({
+         data: userLocationRelations,
+       });
+     }
+     
     const response = NextResponse.json(
       { message: "User created successfully", user: newUser },
       { status: 201 }

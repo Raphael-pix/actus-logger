@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { Menu, Moon, Search, Sun } from "lucide-react";
 import Notifications from "./notifications";
 import { useToggleMenu } from "@/store/useToggleMenu";
-import AdminProfile from "./adminProfile";
+import UserProfile from "./userProfile";
 
 const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -43,7 +43,7 @@ const Navbar = () => {
             {!darkMode ? <Sun size={20} /> : <Moon size={20} />}
           </button>
           <div className="max-lg:hidden">
-            <AdminProfile size="sm" />
+            <UserProfile size="sm" />
           </div>
           <button
             onClick={() => openMenu()}

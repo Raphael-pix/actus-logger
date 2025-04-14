@@ -23,7 +23,7 @@ export default function LoginPage() {
     // Clear the error after 3 seconds
     setTimeout(() => {
       setError(null);
-    }, 3000);
+    }, 10000);
   };
 
   const handleSubmit = async (e) => {
@@ -129,7 +129,7 @@ export default function LoginPage() {
             </div>
 
             {error && (
-              <p className="text-destructive text-sm font-medium mt-2">
+              <p className="text-destructive text-sm mt-2 bg-red-100/60 py-2 px-3 rounded transition-all">
                 {error}
               </p>
             )}

@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import {useUserProfile} from "@/store/useUserProfile"
 
 
-const AdminProfile = ({ size = "lg" }) => {
+const UserProfile = ({ size = "lg" }) => {
   const {profile} = useUserProfile();
   const router = useRouter();
  
@@ -66,4 +66,4 @@ const AdminProfile = ({ size = "lg" }) => {
   );
 };
 
-export default AdminProfile;
+export default UserProfile;

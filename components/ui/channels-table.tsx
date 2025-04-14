@@ -31,7 +31,7 @@ import { Button } from "./button";
 import CreateReportBtn from "@/components/createReportBtn";
 import { Input } from "@/components/ui/input";
 import { useSearchParams, useRouter } from "next/navigation";
-import { locations } from "@/constant";
+import { useLocationsStore } from "@/store/useLocationsStore"
 import { ChevronDown, Pen } from "lucide-react";
 import clsx from "clsx";
 import { toast } from "sonner";
@@ -39,11 +39,18 @@ import { toast } from "sonner";
 interface ChannelsDataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  token?: string;
+}
+interface SitesProp {
+  id:string;
+  name:string;
+  title:string;
 }
 
 export function ChannelsDataTable<TData, TValue>({
   columns,
   data,
+  token
 }: ChannelsDataTableProps<TData, TValue>) {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -62,8 +69,13 @@ export function ChannelsDataTable<TData, TValue>({
   const [isLocationMenuOpen, setIsLocationMenuOpen] =
     React.useState<boolean>(false);
   const [rowSelection, setRowSelection] = React.useState({});
+  const { fetchSites, sites } = useLocationsStore();
   const locationFilter = searchParams.get("location") || "all";
   const isEditing = searchParams.get("editMode");
+
+  React.useEffect(()=>{
+    fetchSites(token);
+  },[])
   // Function to update the URL with selected location
   const updateLocationFilter = (location: string) => {
     const params = new URLSearchParams(searchParams);
@@ -180,7 +192,7 @@ export function ChannelsDataTable<TData, TValue>({
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="start">
-            {locations.map((location) => (
+            {sites.map((location:SitesProp) => (
               <DropdownMenuCheckboxItem
                 key={location.id}
                 className="capitalize checked:bg-neutral-black checked:text-neutral-white"
