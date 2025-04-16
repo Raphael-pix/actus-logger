@@ -1,0 +1,6 @@
+{
+    "crons": [{
+      "path": "/api/channel-status",
+      "schedule": "0 0 * * *"
+    }]
+  }

@@ -1,0 +1,109 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Location {
+  id            String         @id @default(auto()) @map("_id") @db.ObjectId
+  name          String         @unique
+  channels      Channel[] // One location can have many channels
+  reports       Report[] // One location can have many reports
+  userLocations UserLocation[]
+  active        Boolean        @default(true)
+  url           String?        
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("locations")
+}
+
+model Channel {
+  id           String      @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  title        String
+  type         ChannelType
+  comment      String?
+  dateModified DateTime    @default(now())
+  locationId   String      @db.ObjectId
+  location     Location    @relation(fields: [locationId], references: [id], onDelete: Cascade)
+
+  @@map("channels")
+}
+
+enum ChannelType {
+  Radio
+  TV
+}
+
+model Report {
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  createdById String     @db.ObjectId
+  createdBy   User       @relation(fields: [createdById], references: [id], onDelete: Cascade)
+  locationId  String     @db.ObjectId
+  location    Location   @relation(fields: [locationId], references: [id], onDelete: Cascade)
+  type        ReportType
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("reports")
+}
+
+enum ReportType {
+  Excel
+  PDF
+}
+
+model User {
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  username String   @unique
+  password String
+  role     UserRole @default(User)
+  active   Boolean  @default(false)
+  reports  Report[] // One user can have many reports
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userLocations UserLocation[] // Relation through join model
+
+  @@map("users")
+}
+
+// Join model for many-to-many relationship between User and Location
+model UserLocation {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId     String   @db.ObjectId
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  locationId String   @db.ObjectId
+  location   Location @relation(fields: [locationId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@unique([userId, locationId]) // Ensure unique combinations
+}
+
+enum UserRole {
+  Admin
+  User
+}
+
+model ChannelStatus {
+  id   String   @id @default(auto()) @map("_id") @db.ObjectId
+  date DateTime @unique
+
+  clearTvChannels   Int @default(0)
+  unclearTvChannels Int @default(0)
+
+  clearRadioChannels   Int @default(0)
+  unclearRadioChannels Int @default(0)
+
+  @@map("channelStatus")
+}
